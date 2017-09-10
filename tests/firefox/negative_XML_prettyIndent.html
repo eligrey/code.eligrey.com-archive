@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Negative XML.prettyIndent Testcase</title>
+</head>
+<body>
+<script type="text/javascript">
+//<![CDATA[
+  (function(out) {
+    var results = document.createElement("div"), originalIndent = XML.prettyIndent,
+    testXML = XML("<foo><bar/"+"></foo>");
+    XML.prettyIndent = -1;
+    results.textContent = testXML.toXMLString();
+    XML.prettyIndent = originalIndent;
+    out.appendChild(results);
+  })(document.documentElement)
+//]]>
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+head, title {
+	display: block;
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+title::before {
+	content: "Blank Image — Some Site | ";
+}

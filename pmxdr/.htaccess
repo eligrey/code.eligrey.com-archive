@@ -1,0 +1,13 @@
+Redirect 301 /pmxdr/demo2.html http://code.eligrey.com/pmxdr/demo.html
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule (.*) $1.php [L,QSA]
+
+RewriteCond %{HTTP:User-Agent} Gecko/
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule (.*) /http-index-format_automator.php?dir=%{REQUEST_FILENAME} [L,QSA]

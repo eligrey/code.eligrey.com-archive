@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Extending localStorage testcase</title>
+<style type="text/css">
+.pass {
+	color: limegreen;
+}
+.fail {
+	color: red;
+}
+</style>
+</head>
+<body>
+<h1>Extending localStorage testcase</h1>
+<div id="results" class="fail">FAIL: JavaScript Disabled</div>
+<script type="text/javascript">
+var results = document.getElementById("results");
+
+if (typeof Storage != "undefined")
+	Storage.prototype.removeKey = function (key) {
+		this.removeItem( this.key(key) );
+	};
+else
+	results.innerHTML = "FAIL: Storage is undefined";
+
+if (typeof localStorage != "undefined") {
+	if (typeof localStorage.removeKey != "function")
+		results.innerHTML = "FAIL: localStorage.removeKey is not a function";
+	else {
+		results.className = "pass"
+		results.innerHTML = "PASS: localStorage.removeKey is a function";
+	}
+} else
+	results.innerHTML = "FAIL: localStorage is undefined";
+</script>
+</body>
+</html>

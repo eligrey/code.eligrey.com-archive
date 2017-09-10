@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Bomb Timer</title>
+<style type="text/css">
+html {
+	background-color: black;
+	text-align: center;
+	height: 100%;
+	width: 100%;
+	display: table;
+	cursor: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+body {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#message {
+	color: darkred;
+	font-family: sans-serif;
+	font-size: 7em;
+}
+
+#time {
+	font-family: Verdana, monospace;
+	font-weight: bold;
+	color: red;
+	font-size: 11em;
+}
+
+::selection {
+	color: red;
+	background: black;
+}
+
+::-moz-selection {
+	color: red;
+	background: black;
+}
+</style>
+</head>
+<body>
+<div id="message"></div>
+<div id="time"></div>
+<script type="text/javascript">
+//<![CDATA[
+(function () {
+	var hash    = location.hash,
+	settings    = {},
+	doc         = document,
+	messageElem = doc.getElementById("message"),
+	timeElem    = doc.getElementById("time"),
+	duration    = 20000, // default to 20 seconds
+	blink       = 150;
+	
+	if (hash) {
+		hash = hash.replace(/^#!?/, "").split("&");
+		
+		var i = hash.length;
+		
+		while (i--) {
+			var kvPair = hash[i].split("=");
+			settings[kvPair[0]] = kvPair[1];
+		}
+		
+		if ("message" in settings) {
+			messageElem.appendChild(doc.createTextNode(doc.title = decodeURIComponent(settings.message)));
+		}
+		if ("title" in settings) { // explicit title different from message
+			document.title = decodeURIComponent(doc.title);
+		}
+		if ("blink" in settings) {
+			blink = settings.blink;
+		}
+		if ("time" in settings) {
+			duration = parseInt(settings.time, 10) * 1000;
+		}
+	}
+	
+	// minutes:seconds:ms
+	var start = +new Date,
+	timeNode  = timeElem.appendChild(doc.createTextNode("")),
+	countDown = setInterval(function () {
+		var now = +new Date;
+		if (start + duration < now) {
+			clearInterval(countDown);
+			timeNode.nodeValue = "00:00:00";
+			setInterval(function () {
+				timeElem.style.visibility = timeElem.style.visibility === "hidden" ? "visible" : "hidden";
+			}, blink);
+			return;
+		}
+		var time = new Date(start + duration - now);
+		timeNode.nodeValue =
+		          ("0" + time.getMinutes()).substr(-2) +
+		    ":" + ("0" + time.getSeconds()).substr(-2) +
+		    ":" + ("0" + time.getMilliseconds()).substr(-3, 2);
+	}, 10);
+}());
+if (self.chrome && /^Win\d*$/.test(navigator.platform)) {
+	var style = document.createElement("style");
+	document.documentElement.appendChild(style);
+	style.sheet.insertRule(
+		  ":root{text-shadow:transparent 0 0 1px}"
+		, style.sheet.cssRules.length
+	);
+}
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-4364432-7']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+//]]>
+</script>
+</body>
+</html>

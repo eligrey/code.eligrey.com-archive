@@ -1,0 +1,15 @@
+Options +Indexes
+DirectoryIndex help.html
+#DefaultType application/x-javascript
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ loaders/$1.js [L,QSA]
+
+RewriteCond %{HTTP:User-Agent} Gecko/
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}/shell.html !-f
+RewriteRule (.*) /http-index-format_automator.php?dir=%{REQUEST_FILENAME}
+
+Redirect 301 /shell/shell.php http://code.eligrey.com/shell/shell.html

@@ -1,0 +1,12 @@
+.subtitle {
+	margin-top: -25px;
+	font-size: smaller;
+	font-style: italic;
+}
+dt {
+	font-size: x-large;
+	margin-bottom: 5px;
+}
+kbd {
+	background-color: lightgray;
+}

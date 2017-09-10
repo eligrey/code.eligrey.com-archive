@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Edit Page</title>
+<link rel="jetpack" href="edit-page.js" />
+<link rel="stylesheet" href="/jetpack/style.css" />
+<style type="text/css">
+button {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+button.active:before {
+	content: "[";
+}
+button.active:after {
+	content: "]";
+}
+</style>
+</head>
+<body>
+<h1>Edit Page Jetpack feature - <a href="/jetpack/edit-page/versions/">Version 0.1.1</a></h1>
+<div class="subtitle">Photoshop for web pages.</div>
+<p>The Edit Page Jetpack feature gives you the ability to edit pages with a single click.</p>
+<h2>Info</h2>
+<dl>
+	<dt>Installing the Edit Page Jetpack feature</dt>
+	<dd>If an info bar did not appear at the top of this page asking for confirmation to install the Edit Page Jetpack feature, you need install the <a href="https://addons.mozilla.org/en-US/firefox/addon/12025/">Mozilla Jetpack Firefox plugin</a> and then visit this page again after restarting your browser. If you trust me not to do anything malicious with your browser, click the check box for auto-updating this feature while you are on the install page.</dd>
+	
+	<dt>Location of the <button>Edit Page</button> button</dt>
+	<dd>The <button>Edit Page</button> button is located on the right side of your status bar. Your status bar is the bar at the bottom of your browser. If you do not see your status bar, go to <code>View → Status Bar</code> and click the check box (or push <kbd>Alt+V</kbd> then <kbd>Alt+B</kbd>)</dd>
+	
+	<dt>Toggle editing mode</dt>
+	<dd>Left click on the <button>Edit Page</button> button in your status bar. It will then appear as <button class="active">Edit Page</button> and the page in your browser tab currently being viewed will become editable. Click the button again to toggle off editing mode and restore the button to normal.</dd>
+	
+	<dt>Toggle spellcheck</dt>
+	<dd>Right click on the <button class="editpage active">Edit Page</button> button in your status bar while the page in your browser tab currently being viewed is in editing mode to toggle spellcheck.</dd>
+	
+	<dt>Changing the default spellcheck preference</dt>
+	<dd>To change the default spellcheck preference, type <kbd>about:config</kbd> into the location bar (if you see a warning page, push the button to proceed) and type <kbd>extensions.jetpack.features.editpage.spellcheck</kbd> into the text box at the top of the page. Double click on the <strong>extensions.jetpack.features.editpage.spellcheck</strong> item to toggle the default spellcheck preference. Setting the preference to <em>true</em> will make spellcheck be on by default while a page is in editing mode. Likewise, setting the preference to <em>false</em> will yeild the opposite result, make spellcheck be off by default while a page is in editing mode</dd>
+	
+	<dt>Shortcut to this page</dt>
+	<dd>Just middle-click on the <button>Edit Page</button> button in your status bar to open this page in a new tab.</dd>
+</dl>
+<h2>Source code</h2>
+<p>The source code for the Edit Page Jetpack feature is in <a href="edit-page.js">edit-page.js</a>.
+
+<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-4364432-7");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+</body>
+</html>

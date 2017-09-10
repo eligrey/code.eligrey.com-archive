@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>const Testcase</title>
+<script type="text/javascript" src="/xccessors/latest/xccessors.min.js"></script>
+</head>
+<body>
+<h1><code>const</code> Testcase</h1>
+<script type="text/javascript" defer="true">
+//<![CDATA[
+
+var results =  "";
+
+const foo = 5;
+const bar = 6;
+const baz = 7;
+const foobar = 8;
+
+
+try { eval("var foo = 4") }
+catch (e) {}
+
+results += "const foo  == "+foo;
+results += "\nfoo should == 5";
+
+try { eval("const bar = 5") }
+catch (e) {}
+
+results += "\n\nconst bar  == "+bar;
+results += "\nfoo should == 6";
+
+
+try { var baz_deleted = delete baz; }
+catch (e) {}
+
+results += "\n\nconst baz can be deleted  == "+baz_deleted;
+results += "\nbaz can be deleted should == false";
+results += "\ntypeof const baz  == "+typeof baz;
+results += "\ntypeod baz should == number";
+
+try { foobar = 7 }
+catch (e) {}
+
+results += "\n\nconst foobar  == "+foobar;
+results += "\nfoobar should == 8";
+
+
+var container = document.createElement("pre");
+
+container.appendChild(document.createTextNode(results))
+
+document.documentElement.appendChild(container);
+
+</script>
+</body>
+</html>

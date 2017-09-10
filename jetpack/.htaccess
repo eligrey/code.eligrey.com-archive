@@ -1,0 +1,11 @@
+DirectoryIndex index.html
+
+RewriteEngine On
+
+RewriteCond %{HTTP:User-Agent} Gecko/
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}/index.html !-f
+RewriteRule (.*) /http-index-format_automator.php?dir=jetpack/$1 [L,QSA]
+
+
+redirect 301 /jetpack/google-translatifier/ http://code.eligrey.com/jetpack/gtranslatifier/

@@ -1,0 +1,12 @@
+- new interface:
+   new pmxdr(host), a reusable pmxdr interface
+- pmxdrInstance.onload
+- pmxdrInstance.init
+- pmxdrInstance.request
+- pmxdrInstance.unload
+- for old functionality, use pmxdr.request
+- pmxdr.destruct() removes pmxdr and it's message listeners
+- pmxdr.prototype.defaultRequestMethod is now default request method
+- pmxdr.prototype.defaultX properties
+- general code cleanup
+- remove abstracted to abort

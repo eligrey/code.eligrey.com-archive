@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Google Chrome Accessors Testcase</title>
+</head>
+<body>
+<p>Google Chrome seems to not be able to use lookup setters and getters on the document object. It also has strange behavior when setting and getting accessors.</p>
+<ul>
+<li><a href="#" onclick="document.foo;return false;">get document.foo</a></li>
+<li><a href="#" onclick="document.foo = 'bar';return false;">set document.foo to "bar"</a></li>
+<li><a href="#" onclick="alert(document.__lookupGetter__('foo').toString());return false;">lookup document.foo's getter</a></li>
+<li><a href="#" onclick="alert(document.__lookupSetter__('foo').toString());return false;">lookup document.foo's setter</a></li>
+</ul>
+<script type="text/javascript">
+document.__defineGetter__("foo", function () {alert('attempted to get document.foo')});
+document.__defineSetter__("foo", function (value) {alert('attempted to set document.foo to "'+value+'"')});
+</script>
+</body>
+</html>

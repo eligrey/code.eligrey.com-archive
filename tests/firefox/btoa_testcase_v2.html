@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>btoa native base64 encoding testcase</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<script type="application/javascript">
+//<![CDATA[
+function testNativeBase64Encode(str)
+{
+var results = 'Native Base64 Encode Test\n\n';
+
+try
+{
+	// Try encoding the contents of the text box using btoa.
+	results += 'Base64 Encode \u2192 '+str+'\n\treturns '+btoa(str)+'\n\nSuccess :)';
+}
+catch (e) // Mozilla needs to fix btoa NOW
+{
+	results += 'Base64 Encode \u2192 '+str+'\n\treturns '+e+'\n\nFailure :(';
+}
+
+
+alert(results);
+
+}
+//]]>
+</script>
+</head>
+<body>
+<input type="text" id="foo" value="日本語"/>
+<br/>
+<input type="button" value="Base64 Encode" onclick="testNativeBase64Encode(document.getElementById('foo').value);"/>
+</body>
+</html>

@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Object.prototype IE8 Testcase</title>
+</head>
+<body>
+<script type="text/javascript" defer="true">
+//<![CDATA[
+var analysis = document.createElement("div");
+analysis.innerHTML = "<h1>Object.prototype Analysis</h1>";
+
+Object.prototype.x = "PASS";
+var elem = document.createElement("div"),
+obj = {},
+str = "abc",
+bool = false,
+arr = [1,2];
+
+function fn(){}
+
+function analysisTestResult(test, result) {
+	analysis.innerHTML += "\n<div>"+test+": <strong>"+result+"</strong></div>";
+}
+
+function test() {
+  analysisTestResult("elem.x", elem.x);
+  analysisTestResult("obj.x", obj.x);
+  analysisTestResult("str.x", str.x);
+  analysisTestResult("bool.x", bool.x);
+  analysisTestResult("arr.x", arr.x);
+  analysisTestResult("document.x", document.x);
+  analysisTestResult("window.x", window.x);
+  analysisTestResult("fn.x", fn.x);
+}
+
+analysisTestResult("", "1st Tests");
+
+test();
+
+if ( typeof Node != "undefined" ) Node.prototype.x = "PASS (2-node)";
+Element.prototype.x = "PASS (2-elem)";
+
+analysisTestResult("<hr>", "2nd Tests");
+
+test();
+
+Window.prototype.x = "PASS (3-window)";
+
+analysisTestResult("<hr>", "3rd Tests");
+
+test();
+
+document.body.appendChild(analysis);
+//]]>
+</script>
+</body>
+</html>

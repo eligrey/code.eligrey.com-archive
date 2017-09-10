@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Rich Text Area</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<style type="text/css">
+/*<![CDATA[*/
+* {
+  border: 0px;
+  margin: 0px;
+  overflow: hidden;
+}
+#rich_text {
+  width: 100%;
+  height: 600px;
+  overflow: auto;
+}
+/*]]>*/
+</style>
+</head>
+<body>
+<div contenteditable="true" designmode="on" id="rich_text"><strong><em>rich text</em></strong> area drop target<br/></div>
+<script type="application/javascript">
+function maximizeRichTextEditor() {
+ document.getElementById('rich_text').style.height = window.innerHeight+'px';
+}
+maximizeRichTextEditor();
+window.onresize = maximizeRichTextEditor;
+</script>
+</body>
+</html>

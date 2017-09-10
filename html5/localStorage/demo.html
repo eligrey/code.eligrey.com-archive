@@ -1,0 +1,16 @@
+<!doctype html>
+<html manifest="localStorage.cache-manifest">
+<head>
+<meta charset="utf-8"/>
+<title>localStorage.js test</title>
+<script type="text/javascript" src="localStorage.js"></script>
+</head>
+<body>
+<div><button onclick="localStorage.setItem('foo','test')">set localStorage.foo to "test"</button></div>
+<div><button onclick="alert(localStorage.getItem('foo'))">get localStorage.foo</button></div>
+<div><button onclick="localStorage.removeItem('foo')">delete localStorage.foo</button></div>
+<div><button onclick="alert(localStorage.length)">get localStorage.length</button></div>
+<div><button onclick="localStorage.clear()">clear localStorage</button></div>
+</body>
+</html>
+

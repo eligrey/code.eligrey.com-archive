@@ -1,0 +1,23 @@
+0.2.1.2
+=======
+
+Added more languages.
+
+
+0.2.1.1
+=======
+
+A smaller icon is now used as the height available to content in the status bar has
+been decreased in recent versions of Jetpack.
+
+
+0.2.1
+=====
+Added Welsh and Yiddish to the supported languages and did some minor refactoring.
+
+
+0.2
+===
+
+GTranslatifier interface simplified to a single icon. Language choice dropdown removed.
+Added un-translation if user clicks translate button on a google translate page.

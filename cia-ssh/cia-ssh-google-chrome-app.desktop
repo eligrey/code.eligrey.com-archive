@@ -1,0 +1,14 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Encoding=UTF-8
+Name=CIA SSH
+Comment[en]=Central Intelligence Agency SSH
+Terminal=false
+Type=Application
+Icon=padlock.svg
+Exec=/opt/google/chrome/google-chrome --app="http://code.eligrey.com/cia-ssh/cia-ssh.php"
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml_xml;
+
+# You will need to update the Icon path accordingly
+

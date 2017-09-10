@@ -1,0 +1,3 @@
+<FilesMatch "^clock-clean\.html$">
+Header set Link '<symbola-font.css>; rel="stylesheet"; type="text/css"'
+</FilesMatch>

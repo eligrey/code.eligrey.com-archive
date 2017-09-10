@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Your WordPress Blogs</title>
+</head>
+<body>
+<h1 id='msg'>Loading...</h1>
+<div id="blogs"></div>
+<script type="text/javascript" src="http://wordpress.com/js/admin-bar-3913952-0-0.php"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+if ( !document.body ) { document.body = document.getElementsByTagName('body')[0]; }
+var wp_blogs = [],
+blogsListContainer = document.getElementById('blogs');
+var noneFound = 'No WordPress blogs found.<br/>You either are not signed in to WordPress.com or you do not have any WordPress blogs.';
+function addBlog(wp_blog)
+{
+	var blogList = document.getElementById('blog_list');
+	var blogItem = document.createElement('li');
+	var blogItemLink = document.createElement('a');
+	var blogDashboardLink = document.createElement('a');
+	blogItemLink.setAttribute('href', 'http://'+wp_blog.blog+((/\./g).test(wp_blog.blog)? '' : '.wordpress.com')+'/' );
+	blogItemLink.innerHTML = wp_blog.blog;
+	blogDashboardLink.setAttribute('href', wp_blog.uri);
+	blogDashboardLink.innerHTML = "Dashboard";
+	blogItem.appendChild(blogItemLink);
+	blogItem.innerHTML += ' &mdash; ';
+	blogItem.appendChild(blogDashboardLink);
+	blogList.appendChild(blogItem);
+}
+
+if ( typeof adminbar == 'undefined' )
+{
+	document.getElementById('msg').innerHTML = noneFound;
+}
+
+else if ( typeof adminbar != 'undefined' ) // you have a wordpress.com account and are logged in
+{
+	try {
+		adminbar.replace(/.*My Dashboards<\/span><\/a><ul>(.*)<\/ul><\/li><li .*/g, '$1').replace(/(<li><a href="([^"]*)">([^<]*)<\/a><\/li>)/g, function(){wp_blogs.push({'blog': RegExp.$3, 'uri': RegExp.$2})});
+	}
+	catch (e) {
+		document.getElementById('msg').innerHTML = noneFound;
+	}
+}
+
+if ( wp_blogs.length != 0 )
+{
+	var blogList = document.createElement('ul');
+	blogList.setAttribute('id', 'blog_list')
+	document.getElementById('msg').innerHTML = 'Your WordPress Blogs';
+	document.body.appendChild(blogList);
+	for (var i=0; i< wp_blogs.length; i++)
+	{
+		addBlog(wp_blogs[i]);
+	}
+}
+/*]]>*/
+</script>
+</body>
+</html>

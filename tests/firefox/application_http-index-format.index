@@ -1,0 +1,9 @@
+300: http://code.eligrey.com/testcases/firefox/application_http-index-format.index
+101: application/http-index-format Testcase
+101: =====================
+200: Filename File-type Content-Length Last-Modified
+101: Using an ampersand in the filename extension:
+201: "foobar.d%26d" 7897027497892734 FILE Sun,%20C%2001%20June%2000000%2001%3A01%3A01GMT
+101: Real-life instance of file extension with an ampersand being used in gopher:
+201: "//gopher.floodgap.com/gopher/gw?gopher://gopher.quux.org:70/1/Archives/mirrors/textfiles.com/humor" DIRECTORY 
+

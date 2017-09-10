@@ -1,0 +1,78 @@
+* {
+	display: block;
+	border: 1px solid red;
+	font-family: sans-serif;
+	margin-left: 1em;
+	text-wrap: normal;
+	white-space: pre-wrap;
+}
+html {
+	display: block;
+	background-color: purple;
+}
+html::before {
+	content: "Title";
+	display: block;
+	background-color: #b2633e;
+	font-size: 6em;
+	font-family: serif;
+	text-decoration: underline;
+}
+html::after {
+	content: "Last-modified date";
+	display: block;
+	font-size: large;
+	font-style: oblique;
+	background-color: #67d670;
+}
+head {
+	display: block;
+	background-color: #9dc922;
+	margin-top: -0.2em;
+}
+head::before {
+	content: "Subtitle";
+	display: block;
+	background-color: #950feb;
+	font-style: oblique;
+}
+head::after {
+	content: "By Author";
+	display: block;
+	margin-top: 0.3em;
+	background-color: silver;
+	font-weight: bold;
+	font-size: larger;
+}
+body {
+	background-color: orange;
+}
+body::before {
+	content: "Header";
+	font-family: serif;
+	display: block;
+	font-size: xx-large;
+	background-color: #79c0c8;
+}
+body::after {
+	content: "Footer";
+	display: block;
+	font-size: large;
+	background-color: #aae803;
+}
+pre {
+	margin-top: 1em;
+	background-color: #b5d823;
+}
+pre::before {
+	content: "Some image";
+	display: inline;
+	float: left;
+	background-color: #20658a;
+}
+pre::after {
+	content: "Bar";
+	width: 20em;
+	display: block;
+	background-color: #0efe9e;
+}

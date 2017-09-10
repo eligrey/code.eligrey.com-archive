@@ -1,0 +1,6 @@
+- Added Opera 9.5+ support (version 10 always worked though)
+- alwaysTrustedOrigins isn't forEach'd if it is empty
+- Error codes
+- data.data, not data.params anymore
+- added getHeaders support
+- added parens around or statments on lines 85-87

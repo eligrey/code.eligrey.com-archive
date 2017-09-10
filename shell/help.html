@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Help - JavaScript Shell Extended</title>
+<link rel="stylesheet" href="http://code.eligrey.com/shell/squarefree.css" type="text/css">
+</head>
+
+<body>
+
+<h2 style="margin-bottom: 0"><a href="http://code.eligrey.com/shell/shell.html">JavaScript Shell Extended</a></h2>
+
+<p style="margin-top: 0; font-style: italic;">A command-line interface for JavaScript and DOM.</p>
+
+<p><a href="http://code.eligrey.com/shell/shell.html">Open the shell</a> or <a href="http://code.eligrey.com/shell/bookmarklet.html">get the Shell bookmarklet</a>.</p>
+
+
+<h3>Features</h3>
+
+<ul>
+<li>You can enter statements and expressions at the same prompt.</li>
+<li>All code is evaluated under the latest JavaScript version supported by the browser.</li>
+<li>The result of each non-void statement or expression is shown.</li>
+
+<li>User-defined variables.
+ <ul><li><code>b = document.body</code></li></ul>
+</li>
+<li>User-defined functions.
+ <ul><li><code>function f() { return 5; }</code> or <code>function f() 5;</code> in JavaScript 1.8</li></ul>
+</li>
+<li>JavaScript error messages are shown in red.</li>
+<li>Previous statements and expressions are available through Up and Down arrow keys.</li>
+<li>Tab completion.</li>
+<li>Multiline input (Shift+Enter to insert a line break).</li>
+<li>If the shell is opened using a bookmarklet, JavaScript typed into the shell runs in the context of the original window.</li>
+<li>Shell.JavaScript_version is set to the highest explicitly defined JavaScript version supported.</li>
+<li>If no native support for JSON is detected, loads a <a href="http://developer.yahoo.com/yui/compressor/">YUI compressed</a> and <a href="http://dean.edwards.name/packer/">packed</a> version of <a href="http://www.json.org/json2.js">json2.js</a></li>
+<li>Works well in Firefox, Opera 9 (which will give an annoyingly huge error backtrace), and Safari. I need testers for other browsers. <a href="http://eligrey.com/contact/">Contact me</a> if you want to be a tester.</li>
+</ul>
+
+
+<h3>Built-in functions</h3>
+<p>Please note: Hotkeys (the "Alt+Key" codes) may also require you to push the Shift key on Linux.</p>
+<ul>
+<li><code>ans</code>: the result of the previous expression.</li>
+<li><code>print(expr)</code>: prints expr on its own line. If passed mutiple arguments, they will all be printed on one line as an array joined by ", "
+ <ul>
+  <li><code>for(i = 0; i &lt; 6; ++i) <strong>print(</strong>i * i<strong>)</strong></code></li>
+  <li>If the function, console.log is not already defined, all calls to console.log are forwarded to print</li>
+ </ul>
+
+<li><code>pr(expr)</code>: prints and returns its input, so you can use it to print intermediate results in the middle of an expression.
+ <ul>
+  <li><code>function fact(n) { return n&gt;0 ? <strong>pr(</strong>n*fact(n-1)<strong>)</strong> : 1 }</code></li>
+ </ul>
+</li>
+
+<li><code>load(scriptURI [, printLoadMessage [, forcedVersion]])</code>: loads a JavaScript script. printLoadMessage and forcedVersion are optional. printLoadMessage defaults to true and determines if a loading message should be displayed. forcedVersion defaults to the current JavaScript version and determines the version of JavaScript a script should be run under.
+ <ul>
+  <li><code><strong>load(</strong>"http://example.com/foo.js", false, 1.8<strong>)</strong></code></li>
+  <li>There are a quite a few libraries that you can load on the online version just by typing in their names in a load() call (case-sensitive) <a href="http://code.eligrey.com/shell/loaders/">listed in a directory</a>.</li>
+ </ul>
+</li>
+
+<li><code>blink(node)</code> or <kbd>Alt+B</kbd>: makes a node blink for a second.
+ <ul>
+  <li><code><strong>blink(</strong>document.links[3]<strong>)</strong></code></li>
+ </ul>
+</li>
+
+<li><code>props(obj)</code> or <kbd>Alt+P</kbd>: lists the methods and fields of an object.
+ <ul>
+  <li><code><strong>props(</strong>document.body<strong>)</strong></code></li>
+  <li>In Firefox, <code>props</code> also shows which properties belong to the object itself and which belong to objects in its prototype chain.</li>
+ </ul>
+
+<li><code>JSON.stringify(object)</code> or <kbd>Alt+J</kbd>: creates a JSON representation of an object.
+ <ul>
+  <li><code><strong>JSON.stringify(</strong>{foo: "bar", id: 9814}<strong>)</strong></code></li>
+ </ul>
+
+<li><code>JSON.parse(JSON string)</code>: parses a JSON string and returns an object.
+ <ul>
+  <li><code><strong>JSON.parse(</strong>'{"foo":"bar","id":9814}'<strong>)</strong></code></li>
+ </ul>
+</li>
+</ul>
+
+
+<h3>Suggested uses</h3>
+
+<ul>
+<li>Test short bits of JavaScript, <a href="http://www.squarefree.com/bookmarklets/">bookmarklets</a>, or <a href="http://userscripts.org/">user scripts</a>.  (For longer bits of JavaScript, try the <a href="http://www.squarefree.com/jsenv/">JavaScript development enviornment</a> too.)</li>
+
+<li>Explore DOM objects such as <code>document.body</code> using <code>props</code> (<kbd>Alt+P</kbd>) to figure out what is possible.</li>
+<li>Explore the DOM of a specific page using the bookmarklet version of the shell.</li>
+<li>Modify the DOM of a specific page using the bookmarklet version of the shell.</li>
+<li>Use the shell like you would use the home screen of a calculator such as a TI-83. <kbd>Alt+M</kbd> gives you easy access to math functions such as <code>sin</code> and <code>pow</code>.</li>
+
+</ul>
+
+
+<h3>About</h3>
+
+<p>The JavaScript shell was created by <a href="http://www.squarefree.com/">Jesse Ruderman</a>.  <a href="http://ted.mielczarek.org/code/mozilla/">Ted Mielczarek</a> added the tab completion feature in 1.1, <a href="http://ed.agadak.net/">Edward Lee</a> added the multiline input feature in 1.2, Jesper Rønn-Jensen fixed a few bugs for 1.4, and <a href="http://eligrey.com/">Elijah Grey</a> added JSON support, enhanced print(), and latest JavaScript version evaling in 1.4 Extended.  <a href="http://www.squarefree.com/categories/javascript-shell/">Changelogs for some versions are available</a>.  The JavaScript Shell is GPL/LGPL/MPL tri-licensed.</p>
+
+
+<p><i>Last modified October 11, 2009.</i></p>
+</body>
+</html>

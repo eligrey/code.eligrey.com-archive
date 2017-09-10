@@ -1,0 +1,28 @@
+Options +Includes
+AddType text/html .html .shtml .shtm .ht .dhtml .stxt
+AddType application/xhtml+xml .xhtml .xhtm .xht
+AddType application/vnd.mozilla.xul+xml .xul
+AddType application/x-jar .zip .jar
+AddType multipart/related .mht
+AddHandler server-parsed .shtml .html .htm .shtm .ht .dhtml .stxt .txt
+AddType text/plain .phps
+
+ErrorDocument 404 /404.php
+
+Options +Indexes
+DirectoryIndex index.php main.php index.html index.xhtml
+DefaultType text/plain
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.noteboard\.eligrey\.com$ [NC]
+RewriteRule ^(.*)$ http://noteboard.eligrey.com/$1 [R=301,L]
+
+RewriteCond %{HTTP_USER_AGENT} pocket [nocase,ornext]
+RewriteCond %{HTTP_USER_AGENT} mspie [nocase,ornext]
+RewriteCond %{HTTP_USER_AGENT} pocket [nocase,ornext]
+RewriteCond %{HTTP_USER_AGENT} msie [nocase]
+RewriteCond %{HTTP_USER_AGENT} !msie.*opera [nocase]
+RewriteCond %{HTTP_USER_AGENT} !opera.*msie [nocase]
+RewriteCond %{REQUEST_URI} \.xhtml$
+RewriteCond %{THE_REQUEST} HTTP/1\.[^0]
+RewriteRule .* - [type=text/html]

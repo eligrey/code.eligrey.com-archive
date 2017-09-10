@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Object Literal Quoted Property Accessors Testcase</title>
+</head>
+<body>
+<h1>Object Literal Quoted Property Accessors Testcase</h1>
+<script type="text/javascript">
+//<![CDATA[
+var foo = (function() {
+  var bar = 0, foo = {
+    '%bar' getter: function() {
+      return bar;
+    },
+    '%bar' setter: function(x) {
+      if (x >= 0xdeadbeef) {
+        bar = x;
+      } else throw "%bar must be greater or equal to than 0xdeadbeef";
+      
+      return bar;
+    }
+  };
+
+  return foo;
+})();
+
+document.documentElement
+  .appendChild(document.createElement("pre"))
+    .appendChild(document.createTextNode('Set foo["%bar"] to 0x' + (foo["%bar"] = 0xdeadbeef).toString(16)));
+//]]>
+</script>
+</body>
+</html>

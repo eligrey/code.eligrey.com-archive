@@ -1,0 +1,2 @@
+This is an implementation of the HTMLElement.dataset attribute introduced in HTML 5 that is currently unimplemented in every browser as of December 21, 2008.
+Version 0.0.2 works in Firefox 1.5+ (and related Gecko 1.8 browsers), Webkit-based browsers like Safari 3+ and Google Chrome, Opera 9.5+, and partially in IE8

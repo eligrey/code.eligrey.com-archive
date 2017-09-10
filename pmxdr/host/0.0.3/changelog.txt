@@ -1,0 +1,3 @@
+- changed headers response obj to include all headers
+- requests are now asyncronous in case a frame gets mutiple requests at once
+- general code cleanup

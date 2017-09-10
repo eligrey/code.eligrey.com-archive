@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Processing.js loadFont() Test</title>
+<style type="text/css">
+#test {
+  image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+}
+</style>
+<script type="text/javascript" src="http://github.com/eligrey/processing-js/raw/master/processing.min.js"></script>
+<script type="text/javascript" src="http://github.com/eligrey/processing-js/raw/master/examples/init.js"></script>
+</head>
+<body>
+<h1>Processing.js <code>loadFont()</code> Test</h1>
+<script type="application/processing"> 
+void setup() {
+  size(200, 200);
+  PFont fontA = loadFont("ProggyTiny.ttf.gz", "Proggy Tiny", "Proggy", "monospace", true);
+  textFont(fontA, 32);
+  frameRate(3);
+}
+
+void draw() {
+  clear();
+  background(102);
+  fill(0);
+  text("ichi", 30, 60);
+  fill(51);
+  text("ni", 30, 95);
+  fill(204);
+  text("san", 30, 130);
+  fill(255);
+  text("shi", 30, 165);
+}
+</script>
+<canvas id="test" moz-opaque="moz-opaque" width="200" height="200"></canvas>
+<p>Proggy Tiny Font &copy; <a href="http://www.proggyfonts.com/">Tristan Grimmer</a>.</p>
+<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-4364432-7");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+</body>
+</html>

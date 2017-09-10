@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>tinylog viewer</title>
+	<link rel="stylesheet" type="text/css" href="default.tinylog.css" />
+	<link rel="stylesheet" type="text/css" href="tinylog-viewer.css" title="tinylog viewer" />
+</head>
+<body>
+	<div id="main">
+		<h1>tinylog viewer</h1>
+		<input type="file" id="logfile" />
+		<div id="fakeinput">
+			<span id="filename">select tinylog...</span>
+			<span id="viewlog">view log</span>
+		</div>
+	</div>
+	<script type="text/javascript">
+	if (self.console) {
+		console.TINYLOG = true;
+	}
+	</script>
+	<script type="text/javascript" src="https://github.com/eligrey/tinylog/raw/master/tinylog.min.js"></script>
+	<script type="text/javascript" src="https://github.com/eligrey/tinylog/raw/master/decoders/inflate.tinylog.min.js"></script>
+	<script type="text/javascript" src="https://github.com/eligrey/tinylog/raw/master/viewer/tinylog-viewer.js"></script>
+	<script type="text/javascript" src="https://www.google-analytics.com/ga.js"></script>
+	<script type="text/javascript">
+	try {
+	var pageTracker = _gat._getTracker("UA-4364432-7");
+	pageTracker._trackPageview();
+	} catch(err) {}
+	</script>
+</body>
+</html>

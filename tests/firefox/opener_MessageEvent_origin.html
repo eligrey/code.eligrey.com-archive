@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>window.opener MessageEvent.origin testcase</title>
+</head>
+<body>
+<script type="text/javascript">
+//<![CDATA[
+function openWin() {
+  var win = open();
+  win.opener = null;
+  win.location.replace("data:text/html;charset=utf-8;base64,PHNjcmlwdD5hZGRFdmVudExpc3RlbmVyKCJtZXNzYWdlIixmdW5jdGlvbihlKXtkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQudGV4dENvbnRlbnQ9IlRoZSB3aW5kb3cgd2FzIG9wZW5lZCBieSAiK2Uub3JpZ2lufSxmYWxzZSk7cG9zdE1lc3NhZ2UoIiIsIioiKTwvc2NyaXB0Pg==");
+}
+//]]>
+</script>
+<!--
+data: URI content:
+  <script>addEventListener("message",function(e){document.documentElement.textContent="The window was opened by "+e.origin},false);postMessage("","*")</script>
+-->
+<input type="button" onclick="openWin()" value="open data: URI and set opener to null"/>
+</body>
+</html>

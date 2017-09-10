@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>mumbl Demo</title>
+<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.7.2.custom.css"/>
+<style type="text/css">
+#mumbl-player {
+	width: 471px;
+	float: left;
+	overflow: hidden;
+	margin: 0 100% 5px 0;
+}
+.control {
+	margin-top: 3px;
+	cursor: pointer;
+}
+.ui-progressbar {
+	height: 22px;
+}
+.ui-progressbar-value {
+	background-image: url(progressbar-animation.gif);
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+#mumbl-next {
+	margin-right: 3px;
+}
+#mumbl-track-title {
+	width: 269px;
+	height: 22px;
+	float: left;
+	font-size: small;
+	margin-top: 3px;
+	margin-left: 5px;
+	text-align: left;
+	overflow: hidden;
+}
+</style>
+<script type="text/javascript" src="../sm2/soundmanager2-nodebug-jsmin.js"></script>
+<script type="text/javascript">
+soundManager.url = '../sm2/';
+soundManager.nullURL = "../sm2/null.mp3";
+soundManager.debugMode = false;
+soundManager.flashVersion = 8;
+soundManager.useHighPerformance = true;
+</script>
+<script type="text/javascript" src="../mumbl.min.js"></script>
+<script type="text/javascript">
+if (location.search === "?debug") {
+	document.title += " [Debug]";
+	//soundManager.debugMode = true;
+	document.documentElement.appendChild(document.createElement('script')).src='http://www.billyreisinger.com/jash/source/latest/Jash.js';
+}
+</script>
+</head>
+<body>
+<h1>mumbl Demo</h1>
+<div id="mumbl-player">
+  <div id="mumbl-progress">
+    <span id="mumbl-play-pause" class="left control ui-icon ui-icon ui-icon-play" title="Play"></span>
+    <span id="mumbl-loop" class="right control ui-icon ui-icon-radio-off" title="Looping Playlist"></span>
+    <span id="mumbl-shuffle" class="right control ui-icon ui-icon-arrow-1-e" title="Shuffle Off"></span>
+    <span id="mumbl-volume" class="right control ui-icon ui-icon-volume-on" title="Mute: Off"></span>
+    <span id="mumbl-track-title"></span>
+    <span class="right">
+      <span id="mumbl-track-position">0:00</span>
+      <span>/</span>
+      <span id="mumbl-track-duration">0:00</span>
+    </span>
+    <span id="mumbl-next" class="right control ui-icon ui-icon-seek-next" title="Next Track"></span>
+    <span id="mumbl-prev" class="right control ui-icon ui-icon-seek-prev" title="Previous Track"></span>
+  </div>
+</div>
+<h2>Playlist</h2>
+<p>The music is by <a href="http://hyper-metrix.com/">F1LT3R</a>.</p>
+<ol id="playlist">
+  <li><a onclick="mumbl.track(0);return false" href="music/%40F1LT3R%20-%20Cryogenic%20Unrest.mp3">Cryogenic Unrest</a></li>
+  <li><a onclick="mumbl.track(1);return false" href="music/%40F1LT3R%20-%20SOS%20Distress.mp3">SOS Distress</a></li>
+  <li><a onclick="mumbl.track(2);return false" href="music/%40F1LT3R%20-%20Disturbed%20Orbit.mp3">Disturbed Orbit</a></li>
+  <li><a onclick="mumbl.track(3);return false" href="music/%40F1LT3R%20-%20Ghosts%20in%20HyperSpace.mp3">Ghosts in HyperSpace</a></li>
+  <li><a onclick="mumbl.track(4);return false" href="music/%40F1LT3R%20-%20Binary%20Lovers.mp3">Binary Lovers</a></li>
+</ol>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7/jquery-ui.min.js"></script>
+<script type="text/javascript" src="demo.min.js"></script>
+<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-4364432-7");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+</body>
+</html>

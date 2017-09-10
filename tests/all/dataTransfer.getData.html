@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>[dragstart] dataTransfer.getData Testcase</title>
+</head>
+<body>
+<script type="text/javascript">
+//<![CDATA[
+function addEvent( obj, type, fn ) {
+	if ( obj.attachEvent ) {
+		obj.attachEvent( 'on'+type, fn );
+	} else {
+		obj.addEventListener( type, fn, false );
+	}
+}
+addEvent(document, "dragstart", function (evt) {
+	var dt = evt.dataTransfer, undefMsg = "<getData() returned undefined>";
+	if ( typeof dt.getData == "function" ) {
+		alert(
+		'dt.getData("text/plain") == '+(dt.getData("text/plain")||undefMsg)
+		+'\ndt.getData("text/html") == '+(dt.getData("text/html")||undefMsg)
+		+'\ndt.getData("text/uri-list") == '+(dt.getData("text/uri-list")||undefMsg)
+		);
+	}
+});
+//]]>
+</script>
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mi odio, vehicula eu, convallis a, volutpat ac, turpis. Suspendisse nibh arcu, aliquet eu, dignissim id, convallis et, neque. Vestibulum quis erat ac nulla aliquam sollicitudin. Nullam sollicitudin mollis est. Duis vitae mauris. Maecenas a ligula sit amet felis facilisis consectetur. Nunc tempor, nisl semper adipiscing faucibus, augue velit pretium metus, non dictum orci arcu quis odio. Aenean condimentum turpis a tellus. Suspendisse et neque. Aenean sagittis sem vitae leo. Suspendisse fringilla mauris nec sem. Mauris tempus orci eget velit. Aenean eleifend pede vel lacus.
+</p><p>
+Aenean odio. Duis mi. Etiam ultricies aliquam arcu. Aliquam erat volutpat. Nulla pede lectus, bibendum a, fringilla quis, aliquam tempus, ante. Maecenas et odio. Nullam sed mi quis quam tempor vestibulum. Nam bibendum. Sed et magna vitae ligula cursus aliquet. Aenean bibendum metus id enim. Ut est pede, aliquet eget, mattis at, laoreet eu, lacus. Nulla facilisi. In pretium felis et turpis. Fusce eget sem. Nunc vulputate, lorem id consequat vulputate, odio nisi vulputate est, sed vestibulum enim ante sed lectus.
+</p><p>
+Morbi varius eros sodales orci luctus rutrum. Morbi porttitor massa eget turpis lacinia commodo. Vivamus vel leo. Etiam diam velit, sodales vel, iaculis ut, eleifend vitae, orci. Etiam a ipsum non erat hendrerit lobortis. Morbi rhoncus. Nulla ultricies lacus ac neque. Curabitur tempor laoreet arcu. In vel libero at libero iaculis convallis. Vestibulum euismod. Etiam lobortis dapibus augue. Praesent vitae augue. In elementum, ligula non fermentum consequat, velit mauris adipiscing nisl, vitae dignissim enim sem non nibh. Cras viverra elit ac ante. Curabitur hendrerit vestibulum urna. Quisque tincidunt elit sed sapien. Pellentesque egestas fringilla est. Duis malesuada quam et justo.
+</p>
+<p><img src="/favicon.ico" alt="favicon"/> Image</p>
+<p><a href="http://www.example.com/"><img src="/favicon.ico" alt="favicon"/></a> Linked Image</p>
+<p><a href="#this" id="this" onclick="return false">This</a> <em>is</em> <a href="http://www.example.com">some</a> <del>words</del> <ins>text</ins>.</p>
+<p>This <em>is</em> <strong>some</strong> <del>words</del> <ins>text</ins>.</p>
+</body>
+</html>

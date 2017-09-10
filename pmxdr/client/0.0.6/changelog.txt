@@ -1,0 +1,3 @@
+- fixed for Opera 10 beta
+- pmxdr instances now accept .request(arg1, ..., argN) format in addition to .request([obj1, ..., objN])
+- tabs instead of spaces

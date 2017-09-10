@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US-x-Hixie">
+<head>
+<meta charset="utf-8"/>
+<title>DOM Style Mutation Events Testcase</title>
+<style type="text/css">
+.fail {
+	color: red;
+}
+.pass {
+	color: limegreen;
+}
+</style>
+</head>
+<body>
+<h1>DOM Style Mutation Events: <span id="test" class="fail">FAIL (<span id="passed-num">0</span> of 3 tests passed)</span></h1>
+<p>
+	Note: You must disable all browser extensions that modify webpages for this
+	to testcase to function properly. Otherwise, you will get a false positive.
+</p>
+<script type="application/ecmascript">
+<![CDATA[
+(function () {
+var
+	  test = document.getElementById("test")
+	, passedNumEl = document.getElementById("passed-num")
+	, passedNum = passedNumEl.firstChild
+	, requiredMutationEvents = 3
+	, onSubtreeModified = function (event) {
+		var target = event.target;
+		if (target !== passedNumEl && target !== passedNum) {
+			if (requiredMutationEvents) {
+				passedNum.data++;
+				requiredMutationEvents--;
+			}
+			if (!requiredMutationEvents) {
+				document.removeEventListener(event.type, onSubtreeModified, false);
+				test.className = "pass";
+				test.firstChild.data = "PASS (";
+			}
+		}
+	}
+;
+document.addEventListener("DOMSubtreeModified", onSubtreeModified, false);
+var stylesheet = document.styleSheets[0];
+// Test 1
+stylesheet.insertRule('x{color:black}', stylesheet.cssRules.length);
+// Test 2
+stylesheet.cssRules.item(stylesheet.cssRules.length - 1).style.setProperty("color", "white", null);
+// Test 3
+test.style.fontFamily = "Ubuntu";
+}());
+]]>
+</script></body></html>

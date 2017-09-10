@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Argument Destructuring Testcase</title>
+<style type="text/css">
+.pass {
+	color: limegreen;
+}
+.fail {
+	color: red;
+}
+</style>
+</head>
+<body>
+<h1>Argument Destructuring Testcase</h1>
+<div id="results" class="fail">FAIL: JavaScript disabled or JavaScript 1.8 not supported</div>
+<script type="application/javascript;version=1.8">
+//<![CDATA[
+var results = document.getElementById("results");
+
+function Person (
+	{
+		name: {
+			first: firstName,
+			last: lastName
+		},
+		callback
+	},
+	reverse
+)
+
+	let (callbackFn = callback instanceof Function ? function(person) {Person.log(person); callback(person)} : Person.log)
+		this.id = callbackFn( (arguments.hasOwnProperty("1") ? reverse : false) ?
+			lastName + ", " + firstName : firstName + " " + lastName );
+
+Person.log = function(person)
+	arguments.callee.people.push(person);
+Person.log.people = [];
+
+var people = {};
+
+people.john = new Person({
+	name: {
+		first: "John",
+		last: "Doe"
+	},
+	callback: function() {
+		if (Person.log.people[0] == "Doe, John") { // Person.log also called
+			results.className = "pass";
+			results.innerHTML = "PASS: Argument destructuring supported";
+		}
+	}
+}, true);
+//]]>
+</script>
+</body>
+</html>

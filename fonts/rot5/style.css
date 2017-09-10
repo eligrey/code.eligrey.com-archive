@@ -1,0 +1,31 @@
+@font-face {
+	font-family: "Rot5 DejaVu Sans";
+	unicode-range: U+0020, U+0030-0039;
+	src: local("Rot5 DejaVu Sans"),
+	url("Rot5DejaVuSans.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Rot5 DejaVu Serif";
+	unicode-range: U+0020, U+0030-0039;
+	src: local("Rot5 DejaVu Serif"),
+	url("Rot5DejaVuSerif.ttf") format("truetype");
+}
+
+/*
+Unicode ranges in use:
+(space)	U+0020
+0-9	U+0030-0039
+*/
+
+html {
+	font-size: 26px;
+}
+
+.rot5sans, .rot5 {
+	font-family: "Rot5 DejaVu Sans", "DejaVu Sans", "Bitstream Vera Sans", "Droid Sans", Roman, sans-serif;
+}
+
+.rot5serif {
+	font-family: "Rot5 DejaVu Serif", "DejaVu Serif", "Bitstream Vera Serif", "Droid Serif", Roman, serif;
+}

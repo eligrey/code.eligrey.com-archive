@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE window>
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+title="Resize Firefox"
+hidechrome="true"
+windowtype="main"
+orient="vertical"
+sizemode="normal"
+width="500" height="500">
+<hbox flex="1">
+<vbox width="50" style="background-color: red;">
+<resizer dir="topleft" height="50" width="50" style="cursor: nw-resize;"/>
+<resizer dir="left" flex="1" style="cursor: w-resize;"/>
+<resizer dir="bottomleft" height="50" width="50" style="cursor: sw-resize;"/>
+</vbox>
+<vbox flex="1">
+<resizer dir="top" height="50" width="50" style="background-color: red; cursor: n-resize;"/>
+<label value="Drag the red border to resize your window." flex="1" style="text-align:center;font-size:xx-large;"/>
+<resizer dir="bottom" height="50" width="50" style="width:50px; height:50px; background-color: red; cursor: s-resize;"/>
+</vbox>
+<vbox width="50" style="background-color: red; overflow: hidden;">
+<resizer dir="topright" height="50" width="50" style="cursor: ne-resize;"/>
+<resizer dir="right" flex="1" style="cursor: e-resize;"/>
+<resizer dir="bottomright" height="50" width="50" style="cursor: se-resize;"/>
+</vbox>
+</hbox>
+</window>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>YAFFH</title>
+<!--
+YAFFH: Yet Another Fake File Host
+
+X11/MIT Licensed
+
+Copyright (c) 2009 Elijah Grey, http://eligrey.com
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+Ignore the trade and service marks, they are just there to make it look legit.
+-->
+<style type="text/css">
+html {
+	margin-left: 25%;
+	margin-right: 25%;
+}
+fieldset {
+	border-radius         : 5px;
+	-moz-border-radius    : 5px;
+	-webkit-border-radius : 5px;
+}
+fieldset input[type="text"] {
+	width: 70%;
+}
+dt {
+	font-size: larger;
+	font-weight: bold;
+}
+kbd {
+	background-color: lightgray;
+}
+[readonly] {
+	user-modify: read-only;
+	-moz-user-modify: read-only;
+}
+input[type="text"].permalink {
+	color: blue;
+	text-decoration: underline;
+}
+dd.lie:hover:after {
+	opacity: 0.18;
+	filter: alpha(opacity=18);
+	content: " (Lie)";
+}
+#addremove {
+	text-align: center;
+}
+</style>
+</head>
+<body>
+<h1>YAFFH: Yet Another Free File Host</h1>
+<p><a href="/yaffh.html" rel="self">YAFFH</a> is a free file host that stores your files forever.</p>
+
+<p>The permalinks returned by YAFFH will never expire and will still work even if we go out of business trying to host your files.</p>
+<p>Currently, only <a href='http://www.mozilla.com/?from=sfx&amp;uid=252568&amp;t=315'>Mozilla Firefox</a> supports the YAFFH uploading interface but the permalinks work in all standards-compliant browsers.</p>
+<fieldset>
+<legend><label for="addfile">Upload Files</label></legend>
+<div id="addremove">
+	<input id="removefile" type="button" value="-" title="Remove last file"/>
+	<input id="addfile" type="button" value="+" title="Add a new file"/>
+</div>
+<div id="files">
+
+</div>
+</fieldset>
+
+<fieldset>
+<legend><label for="permalinks">Permalinks</label></legend>
+<div id="permalinks">
+</div>
+</fieldset>
+<h2 id="faq"><abbr title="Frequently Asked Questions">FAQ</abbr></h2>
+<dl>
+	<dt>What file formats are supported?</dt>
+	<dd>All of them and then some.</dd>
+
+	
+	<dt>Is there a maximum file size limit?</dt>
+	<dd>No. You may upload files of any file size.</dd>
+	
+	<dt>What are the shortcuts?</dt>
+	<dd>
+	<dl>
+		<dt><kbd>+</kbd></dt>
+		<dd>Add a new file.</dd>
+
+		
+		<dt><kbd>-</kbd></dt>
+		<dd>Remove last file.</dd>
+		
+		<dt><kbd>p</kbd></dt>
+		<dd>Skip to a specified permalink.</dd>
+		
+		<dt><kbd>f</kbd></dt>
+		<dd>Skip to a specified file.</dd>
+
+	</dl>
+	</dd>
+	
+	<dt>How are the files instantly uploaded with <abbr title="Asynchronous JavaScript and XML">Ajax</abbr>?</dt>
+	<dd class="lie">Advanced Instajax&trade; technology developed by <a href="http://eligrey.com/">Elijah Grey</a> hacks your browser and pre-uploads files that are determined to be most likely to be uploaded by you. It determines this based on your most recently modified files.</dd>
+
+	
+	<dt>How are the files instantly downloaded by my browser?</dt>
+	<dd class="lie">YAFFH hacks your browser to download and cache the files before they are even requested.</dd>
+</dl>
+<script type="text/javascript">
+//<![CDATA[
+(function () {
+
+var doc           = document,
+addFileButton     = doc.getElementById("addfile"),
+removeFileButton  = doc.getElementById("removefile"),
+filesContainer    = doc.getElementById("files"),
+files             = [],
+permalinks        = doc.getElementById("permalinks"),
+formatTests = { // contact me (http://purl.eligrey.com/contact) to request adding more formats
+	// Text/document formats
+	"text/plain"            : /^(?:te?xt$|readme)$/, // txt, text, readme
+	"text/html"             : /^html?$/, // html, htm
+	"application/xhtml+xml" : /^xht(?:ml|l)?$/, // xhtml, xhtm, xht
+	"application/xml"       : "xml",
+	"text/rtf"              : "rtf",
+	"application/pdf"       : "pdf",
+	"application/x-shockwave-flash" : "swf", // no idea where this would go
+	
+	
+	// Image formats
+	"image/png"      : /^a?png$/, // png, apng
+	"image/jpeg"     : /^jpe?g$/, // jpeg, jpg
+	"image/gif"      : "gif",
+	"image/svg+xml"  : /^svgz?$/, // svg, svgz
+	"image/x-ms-bmp" : /^(?:bmp|dib)$/, // bmp, dib
+	"image/xbm"      : "xbm",
+	"image/vnd.microsoft.icon" : "ico",
+
+	// Video formats
+	"video/ogg"        : "ogv",
+	"video/mp4"        : /^(?:mp4|m4v|f4[vp])$/, // mp4, m4v, f4v, f4p
+	"video/x-flv"      : "flv",
+	"video/divx"       : "divx",
+	"video/x-matroska" : /^mk[vas]$/, // mkv, mka, mks
+	"video/3gpp"       : "3gp",
+	"video/3gpp2"      : "3g2",
+	
+	// Audio formats
+	"audio/ogg"     : /^og[ga]$/, // ogg, oga
+	"audio/x-flac"  : "flac",
+	"audio/x-speex" : "spx",
+	"audio/mp4"     : /^(?:m4a|f4[ab])$/, // m4a, f4a, f4b
+	
+	// OpenDocument formats
+	"application/vnd.oasis.opendoc.text" : "odt",
+	"application/vnd.oasis.opendoc.presentation" : "odp",
+	"application/vnd.oasis.opendoc.spreadsheet" : "ods",
+	"application/vnd.oasis.opendoc.graphics" : "odg",
+	
+	// Microsoft formats
+	"application/msword" : /^do[ct]$/, // doc, dot
+	"application/vnd.ms-excel" : /^xl[tas]$/, // xlt, xla, xls
+	"application/vnd.ms-powerpoint" : /^p(?:p[tsa]|ot)$/, // ppt, pot, pps, ppa
+	"application/vnd.openxmlformats-officedoc.wordprocessingml.document" : /^doc[xm]$/, // docx, docm
+	"application/vnd.openxmlformats-officedoc.presentationml.presentation" : "pptx",
+	"application/vnd.openxmlformats-officedoc.spreadsheetml.sheet" : "xlsx",
+	"application/vnd.openxmlformats-officedoc.wordprocessingml.template" : "dotx",
+	"application/vnd.openxmlformats-officedoc.spreadsheetml.template" : "xltx",
+	"application/vnd.openxmlformats-officedoc.presentationml.template" : "potx",
+	"application/vnd.openxmlformats-officedoc.presentationml.slideshow" : "ppsx"
+	
+}, formats = [];
+for (formatTest in formatTests) {
+	if (formatTests.hasOwnProperty(formatTest)) {
+		formats.unshift(formatTest);
+	}
+}
+
+function guessType(ext) {
+	var guessedType = "application/octet-stream",
+	i = formats.length, test;
+	while (i--) {
+		test = formatTests[formats[i]];
+		if ((typeof test === "string" && ext === test) ||
+		    (test instanceof RegExp && test.test(ext)))
+		{
+			guessedType = formats[i];
+			break;
+		}
+	}
+	return guessedType;
+}
+
+function fileInputChange() {
+	if (this.files.length > 0) {
+		var id = "permalink" + this.getAttribute("id").substr("file".length),
+		permalink = doc.getElementById(id);
+		if (permalink) {
+			var file = this.files.item(0),
+			fileName = file.name || file.fileName, // FileAPI: name, non-standard: fileName
+			dataURI = file.getAsDataURL().split(","),
+			meta = dataURI[0].substr("data:".length).split(";"),
+			mediaType = file.mediaType || meta[0];
+			meta = ["application/octet-stream", "base64"];
+			mediaType = meta[0];
+			if (!mediaType || mediaType === "application/octet-stream") {
+				meta[0] = guessType(
+					fileName.substr(
+						fileName.lastIndexOf(".") + 1
+					).toLowerCase()
+				);
+			}
+			permalink.value = ["data:", meta.join(";"), ",", dataURI[1]].join("");
+			location.hash = "#" + id;
+			permalink.focus();
+		}
+	}
+}
+
+function removeLastFile() {
+	if (files.length > 0) { // files left
+		var containers = files[files.length - 1];
+		containers.file.parentNode.removeChild(containers.file);
+		containers.permalink.parentNode.removeChild(containers.permalink);
+		files.pop();
+	}
+};
+
+function addNewFile() {
+	var fileContainer = doc.createElement("p"),
+	outputContainer   = doc.createElement("p");
+	fileInput         = doc.createElement("input"),
+	permalink         = doc.createElement("input"),
+	inputLabel        = doc.createElement("label"),
+	outputLabel       = doc.createElement("label"),
+	id                = files.length + 1;
+	
+	fileInput.type = "file";
+	fileInput.id = "file" + id;
+	fileInput.addEventListener("change", fileInputChange, false);
+	
+	inputLabel.setAttribute("for", "file" + id);
+	inputLabel.innerHTML = "File " + id + ": ";
+	
+	fileContainer.appendChild(inputLabel);
+	fileContainer.appendChild(fileInput);
+	
+	permalink.type = "text";
+	permalink.setAttribute("readonly", "readonly");
+	permalink.id = "permalink" + id;
+	permalink.className = "permalink";
+	permalink.addEventListener("focus", permalinkSelect, false);
+	
+	outputLabel.setAttribute("for", "permalink" + id);
+	outputLabel.innerHTML = "Permalink for file " + id + ": ";
+	
+	outputContainer.appendChild(outputLabel);
+	outputContainer.appendChild(permalink);
+	
+	filesContainer.appendChild(fileContainer);
+	permalinks.appendChild(outputContainer);
+	files.push({file:fileContainer, permalink:outputContainer});
+};
+
+addFileButton.addEventListener("click", addNewFile, false);
+removeFileButton.addEventListener("click", removeLastFile, false);
+
+doc.addEventListener("keydown", function(evt) {
+	if (evt.keyCode === 61) // pressed "+", add new file
+		addNewFile();
+	else if (evt.keyCode === 109) // pressed "-", remove last file
+		removeLastFile();
+	else if (evt.keyCode === 80) { // pressed "p", focus specified permalink
+		var id = "permalink" + prompt("Enter the permalink number to skip to."),
+		permalink = doc.getElementById(id);
+		
+		if (permalink) {
+			location.hash = "#" + id;
+			permalink.focus();
+		}
+	} else if (evt.keyCode === 70) { // pressed "f", focus specified file
+		var id = "file" + prompt("Enter file number to skip to."),
+		fileInput = doc.getElementById(id);
+		
+		if (fileInput) {
+			location.hash = "#" + id;
+			fileInput.focus();
+		}
+	}
+}, false);
+
+function permalinkSelect() {
+	this.select();
+};
+
+addNewFile();
+addFileButton.focus();
+
+}());
+//]]>
+</script>
+<script type="text/javascript" src ="http://www.google-analytics.com/ga.js"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-4364432-7");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+</body>
+</html>
+

@@ -1,0 +1,8 @@
+JavaScript Shell 1.4 Extended is a modified version of http://www.squarefree.com/shell/shell.html
+- print() now supports multiple arguments
+- console.log() is created if undefined
+- _win.eval is used instead of changing _win.location.href to a javascript URI. This is to support different JS versions
+- Loads json2.js if no native browser JSON support is present
+- no javascript: URIs are used, so eval()'d strings are treated under the specified javascript version
+- automatically runs code under the highest JavaScript version available
+- a variable named JavaScript_version shows the highest JS version support in browser. undefined if browser doesn't support explicit JS versions

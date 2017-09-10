@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>eli-testcase: Protocol</title>
+<script type="text/javascript">
+//<![CDATA[
+var protocolDescriptors = {
+  "eli-testcase": ["eli-testcase","http://code.eligrey.com/testcases/testcase-protocol-handler.php?uri=%s","code.eligrey.com Testcases"]
+};
+
+function tryProtocol(uri, protocolDescriptor) {
+  try {
+    location.href = uri
+  } catch (e) {
+    if ( Object.prototype.toString.call(protocolDescriptor) == "[object Array]" )
+      navigator.registerProtocolHandler.apply(navigator, protocolDescriptor)
+  }
+  return false
+}
+//]]>
+</script>
+</head>
+<body>
+<a href="eli-testcase:" onclick="return tryProtocol(this.href, protocolDescriptors['eli-testcase'])">Install eli-testcase: Protocol and return to testcase directory.</a>
+</body>
+</html>

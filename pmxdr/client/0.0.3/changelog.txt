@@ -1,0 +1,7 @@
+- new interface, use an object of params instead of param1, param2, paramN
+- simulated TIMEOUT error
+- max retries
+- manual request killing
+- new interface defaults to GET requests
+- params renamed data
+- added getHeaders

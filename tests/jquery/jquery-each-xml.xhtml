@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+<title>jQuery each XML support testcase</title>
+<script type="text/javascript" src="jquery.js"/>
+<style type="text/css">
+.pass {
+	background-color: limegreen;
+}
+.fail {
+	background-color: red;
+}
+.unknown {
+	background-color: lightgray;
+}
+</style>
+</head>
+<body>
+<h1>jQuery each XML support testcase</h1>
+<h2 id="xmlTest" class="unknown">XML iteration</h2>
+<h2 id="xmlListTest" class="unknown">XMLList iteration</h2>
+<script type="application/javascript;e4x=1">
+//<![CDATA[
+typeof XML !== "undefined" && typeof XMLList !== "undefined" &&
+(function () {
+	var xml = <x><a/><b/><c/></x>,
+	xmlList = <><a/><b/><c/></>,
+	xmlTest = "",
+	xmlListTest = "",
+	passed  = "abc";
+	
+	jQuery.each(xml, function (child) {
+		xmlTest += child.localName();
+	});
+	
+	jQuery.each(xmlList, function (node) {
+		xmlListTest += node.localName();
+	});
+	
+	var res,
+	displayRes = function (test, id) {
+		var pass = test === passed;
+		res = document.getElementById(id);
+		res.className = pass ? "pass" : "fail";
+		res.appendChild(document.createTextNode(pass ? " PASSED" : " FAILED"));
+	};
+	
+	displayRes(xmlTest, "xmlTest");
+	displayRes(xmlListTest, "xmlListTest");
+}());
+//]]>
+</script>
+</body>
+</html>

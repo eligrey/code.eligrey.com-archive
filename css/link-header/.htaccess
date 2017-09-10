@@ -1,0 +1,23 @@
+<FilesMatch "^lorem-ipsum-1\.txt$">
+Header set Link '<lorem-ipsum-1.css>; rel="stylesheet"; type="text/css"'
+</FilesMatch>
+
+<FilesMatch "^lorem-ipsum-2\.txt$">
+Header set Link '<lorem-ipsum-2.css>; rel="stylesheet"; type="text/css"'
+</FilesMatch>
+
+<FilesMatch "^lorem-ipsum-3\.txt$">
+Header set Link '<lorem-ipsum-3.css>; rel="stylesheet"; type="text/css"'
+</FilesMatch>
+
+<FilesMatch "^image-1\.png$">
+Header set Link '<image-1.css>; rel="stylesheet"; type="text/css"'
+</FilesMatch>
+
+<FilesMatch "^image-title\.png$">
+Header set Link '<image-title.css>; rel="stylesheet"; type="text/css"'
+</FilesMatch>
+
+<FilesMatch "^image-title\.css$">
+ForceType 'text/css; charset=utf-8' 
+</FilesMatch>

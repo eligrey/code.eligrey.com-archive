@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>JIL Demo</title>
+<script type="text/javascript" src="latest/jil.min.js"></script>
+</head>
+<body>
+<p>If you do not see any response, check out your browser's console. All responses are being logged with console.log()</p>
+<div>
+<input type="text" id="get" value="status"/> <input type="button" value="JIL.get()" onclick="JIL.get(document.getElementById('get').value,logResponse)"/>
+</div>
+<div>
+<input type="text" id="set1" value="status"/>,<input type="text" id="set2" value="Trying out JIL demo."/> <input type="button" value="JIL.set()" onclick="JIL.set(document.getElementById('set1').value,document.getElementById('set2').value,logResponse)"/>
+</div>
+<div>
+<input type="text" id="delete" value="status"/> <input type="button" value="JIL.remove()" onclick="JIL.remove(document.getElementById('delete').value,logResponse)"/>
+</div>
+<div>
+<input type="button" value="JIL.trust()" onclick="JIL.trust(logResponse)"/>
+</div>
+<div>
+<input type="button" value="JIL.untrust()" onclick="JIL.untrust(logResponse)"/>
+</div>
+<div>
+<input type="button" value="JIL.list()" onclick="JIL.list(logResponse)"/>
+</div>
+<div>
+<input type="button" value="JIL.total()" onclick="JIL.total(logResponse)"/>
+</div>
+<div>
+<input type="button" value="Chained request" onclick="chainedRequest()"/>
+</div>
+<div>
+<input type="button" value="JIL.remove('is.developer')" onclick="JIL.remove('is.developer',logResponse)"/>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+function logResponse(response) {
+	alert('Response: \n'+response);
+}
+
+function chainedRequest() {
+	JIL.get('is.developer', function(isDev) {
+		if (isDev == null ) {
+			JIL.trust(function(trusted) {
+				if ( trusted == true ) {
+					trust = true
+					JIL.set('is.developer', confirm('Are you a developer?').toString(), function() {
+					JIL.get('is.developer', function(r){alert('is.developer set to '+r)});
+					});
+					}
+			});
+		}
+		else logResponse('is.developer is '+isDev, isDev);
+	});
+}
+
+//]]>
+</script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-4364432-7");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+</body>
+</html>

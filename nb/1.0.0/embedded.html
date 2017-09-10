@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Noteboard (Embedded Edition)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="Noteboard, the online, offline notepad - Embedded Edition. All of your text is stored offline. Nothing is stored on servers. 4.59 KB" />
+<meta name="keywords" content="noteboard,offline,globalStorage,secure,javascript" />
+<meta name="author" content="Elijah Grey" />
+<meta name="license" content="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
+<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJtSURBVDjLpZPNS5RRFMZ/7zgzWmqTFpObMiuyKDOFCoJaCUKKUFAUBRKtWrSpoP8gwk1BixbpppURtIigqAjKkgSp0KJP86NGbaYZpxmd9773ve89LTTKj1bdxblw4Pmd53Kf44gI/3PCADJyT0z+ByIaMT4S+IjRiPGQwANfERiFGBd8RezQDWc+IDBEth9dRBcBB+YKIDB169hiB142wTIRxLqzXQdELOAg/CE4oWLEd5d4gjFYPYnJ94H1ENGzt9VgFWIVYl2iqw9i/cISgMADDGIViD8n+lusEFvATfaTLq4ie+eizPx4gqMS7WEAM52etTxvsou1ag7ionPDeD+XU1V3glhNA9nhWt4/6OwIA9hAoT71YLzPEGgQQ6BylFTHEVtA58agpIHK+C4yQ++IOpryFVWUrVoXCwMEbhqTS1C28zhgsXqU/KubSFDAn/kGxTuI1TTjTXQTXe4w+vo9vtJp5U7vDQE4IvjJAaYenScofILAx4qPl/+KhLcS29iCGr+OE5kiUlZOSWHou5+baNp15vbH0O//Lt/djp9NkX16GSs+mfQ42m4htqkNlbhGKOKjc+tJPn6OzhdaG88+fA0QAsAonKIQpY2nELOSsftd2JV7iG9rQU92UhQVvFw1qWf9RFJ9bD7X178gB4qp+1cQoxhLZihrbMNInInBq1TEo6jMWjJPewinX2K1mpcDZ+Ey3epoksOnu/jQfZ7xkV6K19VjkqnximhRc92FF28Wxj20sPHh86TRb+9SU7+P0tJaEv2D08rVB5YSL+ngyP5Kt3HDmvDurTVIxOt1k6mTrZcGvvxrnX8BwNty8Brb9FgAAAAASUVORK5CYII=" type="image/x-icon" />
+<style type="text/css">
+/*<![CDATA[*/
+*
+{
+font-family:Arial;
+font-size:16px;
+margin:0px;
+border:0px;
+}
+#storedTextBox
+{
+white-space:nowrap;
+cursor:text;
+font-size:14px;
+font-family:monospace;
+width:100%;
+height:300px;
+}
+#storedTextBox::-moz-selection
+{
+background:black;
+color:white;
+}
+#statusbar
+{
+margin-top:-1px;
+border-top:1px solid black;
+height:18px;
+width:100%;
+}
+#textStatsBar
+{
+color:#3D3D3D;
+height:18px;
+text-align:left;
+width:100%;
+}
+/*]]>*/
+</style>
+<script type="application/x-javascript;version=1.8">
+//<![CDATA[
+/*
+Creative Commons (CC) License:
+Attribution-Noncommercial-Share Alike 3.0 Unported
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+Author: Elijah Grey - www.eligrey.com
+noteboard.eligrey.com
+*/
+/*
+Creative Commons (CC) License:
+Attribution-Noncommercial-Share Alike 3.0 Unported
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+Author: Elijah Grey - www.eligrey.com
+noteboard.eligrey.com
+*/
+//unpacked: noteboard.full.js
+eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('8 k=5.x||U.V||(f.y?f.y.5.x:h)||W,2,l,z=\'\\t\';3 A(){2=5.B(\'X\');l=5.B(\'l\');f.Y=p;p();2.i(\'C\',D,h);2.i(\'C\',m,h);2.i(\'Z\',m,h);2.q();10{E()}11(e){}}3 E(){f.12=F;j(\'r\'13 u[k]){2.6=u[k].r;m()}2.q()}3 m(){8 a={},v;8 b=2.6;a.G=b.7;a.w=0;((b+\' \').4(/<.[^<>]*?>/g,\' \').4(/&14;/15,\' \').4(/[0-9.(),;:!?%#$¿\'"16+=\\\\/-]*/g, \'\' ).4( /\\S\\s+/g,3(){a.w++}));a.H=b.4(/[^\\n]/g,\'\').7+1;a.I=b.4(/[^\\s]/g,\'\').7;a.J=b.4(/[^ ]/g,\'\').7;a.K=b.4(/[^\\t]/g,\'\').7;a.L=b.4(/[^0-9]/g,\'\').7;v=\'17: \'+a.H+\'; 18: \'+a.w+\'; 19: \'+a.G+\'; 1a: \'+a.J+\'; 1b: \'+a.L+\'; 1c: \'+a.K+\'; 1d 1e: \'+a.I;l.6=v}3 M(a){a.1f();a.1g();a.1h=1i}3 D(a){j(a.1j==9){N(2,z);M(a)}}3 N(a,b){j(5.O){a.q();P=5.O.1k();P.1l=b}1m j(a.o||a.o==0.){8 c=a.Q;8 d=a.o;8 e=a.R;a.6=a.6.T(0,d)+b+a.6.T(e,a.6.7);a.R=a.o=d+b.7;a.Q=c}}3 p(){2.1n.1o=f.1p-1q+\'1r\'}3 F(){u[k].r=2.6}j(1s 5.i!==1t){5.i("1u",3(){A()},h)}',62,93,'||textBox|function|replace|document|value|length|var|||||||window||false|addEventListener|if|_host_|textStatsBar|updatetextStatsBar||selectionStart|resizeTextBox|focus|storedText|||globalStorage|textStatusStr|words|domain|opener|tab_code|startInit|getElementById|keydown|respondToKp|init|storeText|characters|lines|whitespace|spaces|tabs|numbers|stopEvent|insertIntoTextarea|selection|sel|scrollTop|selectionEnd||substring|location|hostname|null|storedTextBox|onresize|keyup|try|catch|onunload|in|nbsp|gi|_|Lines|Words|Characters|Spaces|Numbers|Tabs|Total|Whitespace|preventDefault|stopPropagation|stopped|true|keyCode|createRange|text|else|style|height|innerHeight|21|px|typeof|undefined|DOMContentLoaded'.split('|'),0,{}))
+//]]>
+</script>
+</head>
+<body>
+<div id="textBoxArea"><textarea id="storedTextBox"></textarea></div>
+<div id="statusbar"><input type="text" disabled="disabled" id="textStatsBar" /></div>
+</body>
+</html>

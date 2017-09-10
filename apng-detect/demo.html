@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>apng-detect.js Demo</title>
+<script type="text/javascript" src="apng-detect.js"></script>
+</head>
+<body>
+<h1><a href="apng-detect.js">apng-detect.js</a> Demo</h1>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof apng_supported !== "boolean") {
+	var apng_supported = false;
+}
+
+onload = function () {
+	var apngSupportedHeader = document.createElement("h2"),
+	supported = document.createElement("span");
+	
+	supported.style.color = apng_supported ? "green" : "red";
+	supported.appendChild(document.createTextNode(apng_supported ? "Yes" : "No"));
+	apngSupportedHeader.appendChild(document.createTextNode("APNG Supported: "));
+	apngSupportedHeader.appendChild(supported);
+	document.body.appendChild(apngSupportedHeader);
+};
+//]]>
+</script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-4364432-7");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+</body>
+</html>

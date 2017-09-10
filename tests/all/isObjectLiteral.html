@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<!-- Online here: http://code.eligrey.com/testcases/all/isObjectLiteral.html -->
+	<title>isObjectLiteral</title>
+	<style type="text/css">
+	li { background: green; } li.FAIL { background: red; }
+	iframe { display: none; }
+	</style>
+</head>
+<body>
+<ul id="results"></ul>
+<script type="text/javascript">
+function isObjectLiteral(obj) {
+	if (typeof obj !== "object" || obj === null)
+		return false;
+	
+	var hasOwnProp = Object.prototype.hasOwnProperty,
+	ObjProto = obj;
+	
+	while (true) // get obj's Object constructor's prototype
+		if (Object.getPrototypeOf(ObjProto = Object.getPrototypeOf(ObjProto)) === null)
+			break;
+	
+	if (Object.getPrototypeOf(obj) !== ObjProto)
+		return false
+	
+	else if (!Object.getPrototypeOf.isNative) // workaround if non-native Object.getPrototypeOf
+		for (var prop in obj)
+			if (!hasOwnProp.call(obj, prop) && !hasOwnProp.call(ObjProto, prop)) // inherited elsewhere
+				return false;
+	
+	return true;
+};
+
+
+if (!Object.getPrototypeOf) {
+	if (typeof this.__proto__ === "object") {
+		Object.getPrototypeOf = function (obj) {
+			return obj.__proto__;
+		};
+		Object.getPrototypeOf.isNative = true;
+	} else {
+		Object.getPrototypeOf = function (obj) {
+			var constructor = obj.constructor,
+			oldConstructor;
+			if (Object.prototype.hasOwnProperty.call(obj, "constructor")) {
+				oldConstructor = constructor;
+				if (!(delete obj.constructor)) // reset constructor
+					return null; // can't delete obj.constructor, return null
+				constructor = obj.constructor; // get real constructor
+				obj.constructor = oldConstructor; // restore constructor
+			}
+			return constructor ? constructor.prototype : null; // needed for IE
+		};
+		Object.getPrototypeOf.isNative = false;
+	}
+} else if (!("isNative" in Object.getPrototypeOf))
+	Object.getPrototypeOf.isNative = true;
+
+// Function serialization is not permitted
+// Does not work across all browsers
+Function.prototype.toString = function(){};
+
+// The use case that we want to match
+log("{}", {}, true);
+
+// Instantiated objects shouldn't be matched
+log("new Date", new Date, false);
+
+var fn = function(){};
+
+// Makes the function a little more realistic
+// (and harder to detect, incidentally)
+fn.prototype = {someMethod: function(){}};
+
+// Functions shouldn't be matched
+log("fn", fn, false);
+
+// Again, instantiated objects shouldn't be matched
+log("new fn", new fn, false);
+
+var fn2 = function(){};
+
+fn.prototype.someMethod = function(){};
+
+log("new fn2", new fn2, false);
+
+var fn3 = function(){};
+
+fn3.prototype = {}; // impossible to detect (?) without native Object.getPrototypeOf
+
+log("new fn3 (only passes with native Object.getPrototypeOf)", new fn3, false);
+
+log("null", null, false);
+
+log("undefined", undefined, false);
+
+
+/* Note:
+ * The restriction against instantiated functions is
+ * due to the fact that this method will be used for
+ * deep-cloning an object. Instantiated objects will
+ * just have their reference copied over, whereas
+ * plain objects will need to be completely cloned.
+ */
+
+var iframe = document.createElement("iframe");
+document.body.appendChild(iframe);
+
+var doc = iframe.contentDocument || iframe.contentWindow.document;
+doc.open();
+doc.write("<body onload='window.top.iframeDone(Object);'>");
+doc.close();
+
+function iframeDone(otherObject){
+	// Objects from other windows should be matched
+	log("new otherObject", new otherObject, true);
+}
+
+function log(msg, a, b) {
+  var pass = isObjectLiteral(a) === b ? "PASS" : "FAIL";
+
+  document.getElementById("results").innerHTML +=
+	"<li class='" + pass + "'>" + msg + "</li>";
+}
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Xccessors IE8 Testcase</title>
+<script type="text/javascript" src="/xccessors/latest/xccessors.min.js"></script>
+</head>
+<body>
+<script type="text/javascript" defer="true">
+//<![CDATA[
+var analysis = document.createElement("div");
+analysis.innerHTML = "<h1>Accessors Analysis</h1>";
+
+function analysisTest(test, result) {
+	analysis.innerHTML += "\n<div>"+test+": <strong>"+result+"</strong></div>";
+}
+
+analysisTest("navigator.userAgent", navigator.userAgent);
+analysisTest("typeof DOMStringMap", typeof(DOMStringMap));
+analysisTest("typeof Object.defineProperty", typeof(Object.defineProperty));
+analysisTest("typeof Object.getOwnPropertyDescriptor", typeof(Object.getOwnPropertyDescriptor));
+var docFrag = document.createDocumentFragment(),
+chNodes = document.createDocumentFragment().childNodes,
+obj = {},
+attrs = document.createElement('div').attributes,
+divElm = document.createElement('div');
+
+try {
+	docFrag.__defineGetter__("test", function(){analysisTest("document.createDocumentFragment().__defineGetter__", "PASS")});
+	docFrag.test
+} catch(e) { analysisTest("document.createDocumentFragment().__defineGetter__ Error", e); }
+try {
+	chNodes.__defineGetter__("test", function(){analysisTest("document.createDocumentFragment().childNodes.__defineGetter__", "PASS")});
+	chNodes.test
+} catch(e) { analysisTest("document.createDocumentFragment().childNodes.__defineGetter__ Error", e); }
+try {
+	attrs.__defineGetter__("test", function(){analysisTest("document.createElement('div').attributes.__defineGetter__", "PASS")});
+	attrs.test
+} catch(e) { analysisTest("document.createElement('div').attributes.__defineGetter__ Error", e); }
+try {
+	divElm.__defineGetter__("test", function(){analysisTest("document.createElement('div').__defineGetter__", "PASS")});
+	divElm.test
+} catch(e) { analysisTest("document.createElement('div').__defineGetter__ Error", e); }
+try {
+	document.__defineGetter__("test", function(){analysisTest("document.__defineGetter__", "PASS")});
+	document.test
+} catch(e) { analysisTest("document.__defineGetter__ Error", e); }
+try {
+	window.__defineGetter__("test", function(){analysisTest("window.__defineGetter__", "PASS")});
+	window.test
+} catch(e) { analysisTest("window.__defineGetter__ Error", e); }
+
+
+document.body.appendChild(analysis);
+</script>
+</body>
+</html>

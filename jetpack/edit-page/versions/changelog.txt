@@ -1,0 +1,10 @@
+0.1.2
+=====
+Removed location of button info from index.html.
+Now it only toggles current doc's editing mode instead of last one being edited.
+
+
+0.1.1
+=====
+Removed "margin-top: 2px" from button's CSS as Jetpack margins bug is fixed as of
+Jetpack 0.1.3.

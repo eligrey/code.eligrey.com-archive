@@ -1,0 +1,15 @@
+CiteDrag Changelog
+==================
+
+0.0.3
+=====
+Completely redone.
+Added CiteDrag.enable() and CiteDrag.disable() methods to enable and disable CiteDrag.
+Adds citations into the text/x-moz-url datatype in the form of #url comments.
+
+0.0.2
+=====
+Added forward compatability for IE if it ever supports the standard drag & drop model
+Less ugly code
+Feature detection so code is only run if supported
+Fix for Webkit and Chrome nightlies

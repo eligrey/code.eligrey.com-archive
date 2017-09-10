@@ -1,0 +1,14 @@
+Changelog for JIL 0.0.4:
+
+- JIL is now a function with properties, not just an object
+- JIL method calls are now chainable
+- No longer removes listeners if they are not already set
+- Added JIL.requestCallbacks.reset([key])
+- Replaced all single quotes with double quotes because I felt like it
+- JIL.loadFrame([readyCallback]) now passes readyCallback the JIL function
+- Added JIL.changeHost([origin [, path[, callback]]]) for easy host changing
+- JIL.query now only adds a callback if it is a function
+- JIL.handleMessage renamed to JIL.handleResponse
+- Grouped the fields first then the methods in the initialization for orginization
+- JIL.generateID removed and an anonymous ran-once function named safeRandID with collision prevention was placed inside JIL.query
+- JIL.frame.contentWindow.postMessage's second argument is now always JIL.origin instead of "*"

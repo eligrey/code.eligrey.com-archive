@@ -1,0 +1,4 @@
+jData Host versions archive is /host/
+JIL versions archive is /jil/
+----------------------------
+Use viewsource.php in /host/ to view the source of PHP files. (The only one with any server-side logic in it is postMessage.php)

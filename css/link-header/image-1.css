@@ -1,0 +1,22 @@
+*, ::before, ::after {
+	border: 1px dashed red;
+	counter-increment: elem;
+	font-family: sans-serif;
+	margin: 1em;
+	text-wrap: normal;
+	white-space: pre-wrap;
+	display: block;
+}
+::before, ::after {
+	content: "Element " counter(elem);
+	color: darkred;
+}
+:root {
+	background-color: black;
+}
+:nth-child(odd) {
+	background-color: gray;
+}
+:nth-child(even) {
+	background-color: lightgray;
+}

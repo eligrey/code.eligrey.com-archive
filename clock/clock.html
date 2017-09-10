@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>Analog clock in 234 bytes</title>
+<!-- For people without good Unicode fonts -->
+<link rel="stylesheet" type="text/css" href="symbola-font.css" />
+<script type="application/ecmascript">
+// This script doesn't count towards the filesize total as it's just a cosmetic fix for
+// Google Chrome users on windows to enhance font smoothing. This app will still function
+// without it.
+if (self.chrome && /^Win\d*$/.test(navigator.platform)) {
+	var style = document.createElement("style");
+	document.documentElement.appendChild(style);
+	style.sheet.insertRule(
+		  "html {text-shadow: rgba(0, 0, 0, .01) 0 0 1px}"
+		, style.sheet.cssRules.length
+	);
+}
+</script>
+</head>
+<!-- The following is the only part that counts towards the total filesize as the
+     entire app can function with it. -->
+<x id=c><script>setInterval(eval(a="c.innerHTML='&#'+(128336+((h=(n=new Date).getHours(c.style.fontSize=Math.min(innerWidth,innerHeight)+'px')%12)?h-1:11)+(n.getMinutes()>29&&12)),a"),1e3)</script>
+<!-- end of app -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-4364432-7']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</body>
+</html>

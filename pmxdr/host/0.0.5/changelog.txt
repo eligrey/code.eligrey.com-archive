@@ -1,0 +1,2 @@
+- Fixed evt.source for IE8
+- Store evt.origin in case thread ends

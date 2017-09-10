@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Bookmarklets</title>
+<style type="text/css">
+li:target {
+	background: #DDEEF6;
+}
+
+.permalink {
+	color: inherit;
+	text-decoration: none;
+}
+</style>
+</head>
+<body>
+<h1>Bookmarklets</h1>
+<ul>
+	<li id="next-page">
+	  <a href="#next-page" class="permalink">Next page:</a>
+	  <a href="javascript:(function(){var d=location,a=document.querySelector('[rel~=&quot;next&quot;]');if(a){d.href=a.href}else{d.href=d.href.replace(/(\d+)(\D*)$/,function(m,n,e){return +n+1+e})}}());">+</a>
+	</li>
+	<li id="prev-page">
+	  <a href="#prev-page" class="permalink">Previous page:</a>
+	  <a href="javascript:(function(){var d=location,b=document.querySelector('[rel~=&quot;prev&quot;]');if(b){d.href=b.href}else{d.href=d.href.replace(/(\d+)(\D*)$/,function(m,n,e){return n-1+e})}}());">-</a>
+	</li>
+</ul>
+<script type="text/javascript">
+//<![CDATA[
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-4364432-7']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+//]]>
+</script>
+</body>
+</html>

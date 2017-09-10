@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Passwords Viewer</title>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+<meta name="version" content="1.0.0" />
+<meta name="author" content="Elijah Grey" />
+<meta name="license" content="http://creativecommons.org/licenses/LGPL/2.1/" />
+<style type="text/css">
+/*<![CDATA[*/
+pre,textarea
+{
+font-family:monospace;
+}
+iframe#passxmlload
+{
+display:none;
+}
+#xmlframecontainer
+{
+display:none;
+}
+textarea#outputbox
+{
+overflow:hidden;
+resize:none;
+}
+input[type="text"]#passxmlfile
+{
+width:300px;
+}
+/*]]>*/
+</style>
+</head>
+<body>
+<div id="xmlframecontainer"></div>
+<form method="get" action="?" onsubmit="if(passxmlfile.value!=''){loadPassXML();};return false;">
+<p>
+<label for="passxmlfile">Passwords XML File (Must be in same directory): </label><input type="file" id="passxmlfile" onchange="if(this.value!=''){loadPassXML();}"/>
+</p>
+</form>
+<div id="outputcontainer"></div>
+<script type="application/javascript">
+//<![CDATA[
+//iframe is used to support offline usage and data uris
+var xmlfile, fileRegEx = /file=.+/;
+
+if ( fileRegEx.test(location.search) || fileRegEx.test(location.hash) ) {
+	if ( fileRegEx.test(location.search) ) {
+		xmlfile = decodeURIComponent(location.search.substr(location.search.search(fileRegEx)+5));
+	} else if ( fileRegEx.test(location.hash) ) {
+		xmlfile = decodeURIComponent(location.hash.substr(location.hash.search(fileRegEx)+5));
+	}
+	//document.getElementById('passxmlfile').value=xmlfile;
+	loadPassXML(xmlfile);
+}
+
+function loadPassXML(file)
+{
+	if (!file) {
+		file=document.getElementById('passxmlfile').value;
+	}
+
+	var framecontainer=document.getElementById('xmlframecontainer');
+	var outputcontainer=document.getElementById('outputcontainer');
+	var xmlloadframe,outputbox;
+
+	if (!document.getElementById('passxmlload'))
+	{
+		xmlloadframe=document.createElement('iframe');
+		xmlloadframe.setAttribute('src',file);
+		xmlloadframe.setAttribute('id','passxmlload');
+		framecontainer.appendChild(xmlloadframe);
+	} else {
+		xmlloadframe=document.getElementById('passxmlload');
+		xmlloadframe.setAttribute('src',file);
+	}
+
+	if (!document.getElementById('outputbox')) {
+		outputbox=document.createElement('textarea');
+		outputbox.setAttribute('id','outputbox');
+		outputbox.setAttribute('rows','1');
+		outputbox.setAttribute('cols','9');
+		outputbox.setAttribute('spellcheck',false);
+		outputbox.addEventListener('click',function() {outputbox.select();},false);
+		outputbox.value='Loading...';
+		outputbox.rows='1';
+		outputbox.cols='9';
+		outputcontainer.appendChild(outputbox);
+	} else {
+		outputbox=document.getElementById('outputbox');
+		outputbox.value='Loading...';
+	}
+
+	if (xmlloadframe) {
+		xmlloadframe.addEventListener('load',function() {
+			var passwordsxml=xmlloadframe.contentDocument.getElementsByTagName('entries')[0];
+			textPasswordsTable(outputbox,passwordsxml);
+	}, false);
+	}
+};
+
+function compareNumbers(a, b) {
+  if(a > b)
+    return 1;
+  if(a < b)
+    return -1;
+  return 0;
+};
+
+var longestStrMinLen = 5;
+
+function longestStrLenByAttr(a,attr)
+{
+	var strs = [longestStrMinLen]; // mininum string length in arr
+	for (var i in a) {
+		if ( typeof(a[i].getAttribute) == 'function' ) { strs.push(a[i].getAttribute(attr).length); }
+	}
+
+return strs.sort(compareNumbers)[strs.length-1];
+};
+
+function duplicateStr(str,times){return new Array(parseInt(times)||0+1).join(str);};
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=213047
+//if(typeof window['btoa']=='function'){var Base64={'decode':function(str){return atob(str)}};}
+//else {
+var Base64={'_keyStr':"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",'decode':function(input){var output="";var chr1,chr2,chr3;var enc1,enc2,enc3,enc4;var i=0;input=input.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(i<input.length){enc1=this._keyStr.indexOf(input.charAt(i++));enc2=this._keyStr.indexOf(input.charAt(i++));enc3=this._keyStr.indexOf(input.charAt(i++));enc4=this._keyStr.indexOf(input.charAt(i++));chr1=(enc1<<2)|(enc2>>4);chr2=((enc2&15)<<4)|(enc3>>2);chr3=((enc3&3)<<6)|enc4;output=output+String.fromCharCode(chr1);if(enc3!=64){output=output+String.fromCharCode(chr2);}if(enc4!=64){output=output+String.fromCharCode(chr3);}}output=Base64._utf8_decode(output);return output;},'_utf8_encode':function(string){string=string.replace(/\r\n/g,"\n");var utftext="";for(var n=0;n<string.length;n++){var c=string.charCodeAt(n);if(c<128){utftext+=String.fromCharCode(c);}else if((c>127)&&(c<2048)){utftext+=String.fromCharCode((c>>6)|192);utftext+=String.fromCharCode((c&63)|128);}else{utftext+=String.fromCharCode((c>>12)|224);utftext+=String.fromCharCode(((c>>6)&63)|128);utftext+=String.fromCharCode((c&63)|128);}}return utftext;},'_utf8_decode':function(utftext){var string="";var i=0;var c=c1=c2=0;while(i<utftext.length){c=utftext.charCodeAt(i);if(c<128){string+=String.fromCharCode(c);i++;}else if((c>191)&&(c<224)){c2=utftext.charCodeAt(i+1);string+=String.fromCharCode(((c&31)<<6)|(c2&63));i+=2;}else{c2=utftext.charCodeAt(i+1);c3=utftext.charCodeAt(i+2);string+=String.fromCharCode(((c&15)<<12)|((c2&63)<<6)|(c3&63));i+=3;}}return string;}};
+//}
+
+function textPasswordsTable(textbox,passwordsxml)
+{
+	var output="", passwords;
+	passwords=passwordsxml.getElementsByTagName('entry');
+
+	if (passwordsxml.getAttribute('encrypt') == 'true') {
+		for (var i=0;i<passwords.length;i++) {
+			passwords[i].setAttribute('user',Base64.decode(passwords[i].getAttribute('user')));
+			passwords[i].setAttribute('password',Base64.decode(passwords[i].getAttribute('password')));
+		}
+		passwordsxml.setAttribute('encrypt', 'false');
+	}
+
+	if ( !passwordsxml.getAttribute('shortenedHosts') ) {
+		for (var i=0;i<passwords.length;i++) {
+			passwords[i].setAttribute('host', passwords[i].getAttribute('host').replace(/^https?:\/\//,''));
+		}
+		passwordsxml.setAttribute('shortenedHosts', 'true');
+	}
+
+	var hw=duplicateStr(" ",(longestStrLenByAttr(passwords,'host')-("host".length))),uw=duplicateStr(" ",(longestStrLenByAttr(passwords,'user')-("user".length))),pw=duplicateStr(" ",(longestStrLenByAttr(passwords,'password')-("pass".length)));
+	var hl=longestStrLenByAttr(passwords,'host'), ul=longestStrLenByAttr(passwords,'user'), pl=longestStrLenByAttr(passwords,'password');
+	var key="| HOST"+hw+"  | USER"+uw+"  | PASS"+pw+"  |";
+	var fullLine="+"+duplicateStr("-",(longestStrLenByAttr(passwords,'host')+3))+'+'+duplicateStr("-",(longestStrLenByAttr(passwords,'user')+3))+'+'+duplicateStr("-",(longestStrLenByAttr(passwords,'password')+3))+"+";
+	output=fullLine;
+	output+="\n"+key;
+	output+="\n"+fullLine;
+	for (var i=0;i<passwords.length;i++) {
+		output+="\n| "+passwords[i].getAttribute('host')+duplicateStr(" ",hl-passwords[i].getAttribute('host').length+1)+" | "+passwords[i].getAttribute('user')+duplicateStr(" ",ul-passwords[i].getAttribute('user').length+1)+" | "+passwords[i].getAttribute('password')+duplicateStr(" ",pl-passwords[i].getAttribute('password').length+1)+" |";
+	}
+	output+="\n"+fullLine;
+	var lines=output.match(/\n/g).length;
+	textbox.setAttribute('rows', lines+1);
+	textbox.setAttribute('cols', fullLine.length);
+	textbox.value=output;
+};
+//]]>
+</script>
+</body>
+</html>

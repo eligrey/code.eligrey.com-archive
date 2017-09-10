@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE window>
+<window
+id="colorpicker"
+title="Color Picker"
+orient="vertical"
+xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<vbox style="max-width:220px;max-height:187px;overflow:hidden">
+<textbox id="colorCode" value="#FFFFFF" onfocus="this.select();" readonly="readonly" maxlength="7"/>
+<colorpicker id="color" onselect="var cCode=document.getElementById('colorCode');cCode.value=this.color;cCode.focus()"/>
+</vbox>
+</window>

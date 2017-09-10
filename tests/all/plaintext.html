@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>&lt;plaintext&gt; Testcase</title>
+<!--element.textContent for IE8-->
+<script type="text/javascript" src="http://code.eligrey.com/textcontent.js/latest/textcontent.min.js"></script>
+</head>
+<body>
+<h1>&lt;plaintext&gt; Testcase</h1>
+<script type="text/javascript">
+//<![CDATA[
+(function(){
+  document.documentElement.appendChild(document.createElement("h2"))
+    .textContent = 'Using document.createElement("plaintext")';
+  var container = document.createElement("div");
+  container.appendChild(document.createElement("plaintext"));
+  container.appendChild(document.createElement("span"))
+    .appendChild(document.createElement("em"))
+      .textContent = "lorem ipsum";
+  document.documentElement.appendChild(container);
+  document.documentElement.appendChild(document.createTextNode('container.innerHTML == "' + container.innerHTML + '"'));
+  
+  document.documentElement.appendChild(document.createElement("hr"));
+  
+  document.documentElement.appendChild(document.createElement("h2"))
+    .textContent = 'Appending container.innerHTML';
+  var container2 = document.createElement("div");
+  container2.innerHTML = container.innerHTML;
+  document.documentElement.appendChild(container2);
+  
+  document.documentElement.appendChild(document.createElement("hr"));
+  
+  document.documentElement.appendChild(document.createElement("h2"))
+    .textContent = 'document.documentElement.innerHTML';
+  document.documentElement.appendChild(document.createElement("pre"))
+    .textContent = document.documentElement.innerHTML;
+})()
+//]]>
+</script>
+</body>
+</html>

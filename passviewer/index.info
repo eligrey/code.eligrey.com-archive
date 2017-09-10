@@ -1,0 +1,4 @@
+Passwords Viewer is for use with XML exported by the Firefox Password Exporter Addon: https://addons.mozilla.org/en-US/firefox/addon/2848
+Passwords Viewer generates a text-table for use in a text file (which you should encrypt with a master password)
+Passwords Viewer is made for local use on your computer's filesystem ONLY; passviewer-online.xhtml will work online, try it with fakepasswords.xml
+Appending a ?file=FILENAME will auto-load a passwords file.

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" />
+<title>jQuery E4X DOM Plugin Test</title>
+<style type="text/css">
+.fail {
+	background-color: red;
+}
+.pass {
+	background-color: limegreen;
+}
+</style>
+<script type="application/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="application/javascript;e4x=1" src="http://purl.eligrey.com/github/e4x.js/raw/master/jquery-plugin/jquery.e4x-dom.min.js"></script>
+</head>
+<body>
+<h1>jQuery E4X DOM Plugin Test</h1>
+<div id="xml2dom">
+	<h2 class="fail"><em>XML → DOM</em> doesn't work.</h2>
+</div>
+<div id="dom2xml">
+	<h2 class="fail"><em>DOM → XML</em> doesn't work.</h2>
+</div>
+<script type="application/javascript;e4x=1">
+//<![CDATA[
+$("#xml2dom").empty().append($(
+	<h2 class="pass">
+		<em>XML → DOM</em> works!
+	</h2>
+));
+$("#dom2xml").empty().append($($(
+	<h2 class="pass">
+		<em>DOM → XML</em> works!
+	</h2>
+).xml()));
+//]]>
+</script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-4364432-7']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</body>
+</html>

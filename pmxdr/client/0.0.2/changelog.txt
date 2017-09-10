@@ -1,0 +1,2 @@
+- Added Opera 9.5+ support (Opera 10 was always supported)
+- pmxdr.requests.clear keeps the clear function in pmxdr.requests when called

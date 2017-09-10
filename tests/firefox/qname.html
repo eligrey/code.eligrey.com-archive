@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>QName and Namespace testcase</title>
+</head>
+<body>
+<script type="text/javascript">
+try {
+  new QName("~!@#$\n%^");
+  alert("FAIL\n  QName shouldn't allow an unqualified name.");
+} catch(e) { alert("PASS\n  QName didn't allow an unqualified name.") }
+</script>
+</body>
+</html>

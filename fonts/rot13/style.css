@@ -1,0 +1,32 @@
+@font-face {
+	font-family: "Rot13 DejaVu Sans";
+	unicode-range: U+0020, U+0041-005a, U+0061-007a;
+	src: local("Rot13 DejaVu Sans"),
+	url("Rot13DejaVuSans.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Rot13 DejaVu Serif";
+	unicode-range: U+0020, U+0041-005a, U+0061-007a;
+	src: local("Rot13 DejaVu Serif"),
+	url("Rot13DejaVuSerif.ttf") format("truetype");
+}
+
+/*
+Unicode ranges in use:
+(space)	U+0020
+A-Z	U+0041-005a
+a-z	U+0061-007a
+*/
+
+html {
+	font-size: 26px;
+}
+
+.rot13sans, .rot13 {
+	font-family: "Rot13 DejaVu Sans", "DejaVu Sans", "Bitstream Vera Sans", "Droid Sans", Roman, sans-serif;
+}
+
+.rot13serif {
+	font-family: "Rot13 DejaVu Serif", "DejaVu Serif", "Bitstream Vera Serif", "Droid Serif", Roman, serif;
+}

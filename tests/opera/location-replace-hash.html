@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Changing location.hash with location.replace() Testcase</title>
+<style type="text/css">
+.pass {
+  color: limegreen;
+}
+.fail {
+  color: red;
+}
+</style>
+</head>
+<body>
+<h1>Changing <code>location.hash</code> with <code>location.replace()</code> Testcase</h1>
+<p>This testcase will only work if you open it in a tab with a blank history (a new tab).</p>
+<script type="text/javascript">
+location.replace("#foo");
+
+var hash1 = location.hash, hash2,
+results = document.createElement("div");
+
+location.replace("#bar")
+
+history.back();
+
+hash2 = location.hash;
+
+results.className = (hash1 != hash2 ? "pass" : "fail");
+results.appendChild(document.createTextNode(results.className.toUpperCase()));
+document.getElementsByTagName("body")[0].appendChild(results);
+
+</script>
+</body>
+</html>

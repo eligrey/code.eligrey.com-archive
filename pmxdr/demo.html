@@ -1,0 +1,85 @@
+<!doctype html>
+<head>
+<meta charset="utf-8" />
+<title>pmxdr demo</title>
+<script type="text/javascript" src="client/latest/pmxdr.min.js"></script>
+</head>
+<body>
+<h1>pmxdr demo</h1>
+<em id="testing">Automated tests in progress...</em>
+<h2>Results:</h2>
+<strong>All tests are being requested from the remote domain, eligrey.com. code.eligrey.com does not usually have access to eligrey.com through XMLHttpRequests</strong>
+<div id="results"></div>
+<script type="text/javascript">
+//<![CDATA[
+
+var pmxdrInterface = new pmxdr("http://eligrey.com");
+
+function doPmxdrTests() {
+
+  var results = document.getElementById("results");
+  results.innerHTML = ""; // clear results case there is anything in it
+
+  pmxdrInterface.onload = function() {
+  
+    var tests = [
+      ["Requesting malicous JSON data using GET", "{uri:\"/pmxdr/example.php?x=1\"}", false],
+      ["Requesting malicous JSON data using POST", "{method:\"post\", uri:\"/pmxdr/example.php\", data:\"x=1\", contentType:\"application/x-www-form-urlencoded\"}", false],
+      ["Requesting a resource That code.eligrey.com is not explicitly allowed to access\nThis should cause a DISALLOWED_ORIGIN security error.", "{uri:\"/\"}", true],
+      ["Requesting a non-existant resource that gives a 404 error.\nThis should cause a LOAD_ERROR.", "{uri:\"/nonexistant-page-blarg\"}", true],
+      ["Requesting a resource that only allows POST requests using a GET request.\nThe page sends this header: Access-Control-Allow-Methods: POST\nThis should cause a DISALLOWED_REQUEST_METHOD", "{uri:\"/pmxdr/example2.php\"}", true],
+      ["Requesting a resource that only allows POST requests using a POST request.", "{method: \"post\", uri:\"/pmxdr/example2.php\", data:\"some data to send\", contentType:\"application/x-www-form-urlencoded\"}", false],
+      ["Requesting a non-existant resource with a 5ms timeout.\nThis should cause a TIMEOUT error (Opera versions under 10 give a LOAD_ERROR instead due to an Opera bug)", "{uri:\"/nonexistant-page-blarg2\", timeout:5}", true]
+    ], testsCompleted = 0;
+  
+    function pmxdrTest(desc, req, errorIsGood) {
+      var code = desc+"\n> pmxdr.request("+req+")\n\n",
+      codeContainer = document.createElement("pre");
+      var request = eval("("+req+")");
+      request.callback = function(response) {
+        if ( !response.error ) {
+          code += "(PASS) Request Success"
+          code += "\nContent-Type == "+JSON.stringify(response.headers["content-type"]);
+          code += "\nAccess-Control-Allow-Origin == "+JSON.stringify(response.headers["access-control-allow-origin"]);
+          code += "\nAccess-Control-Allow-Methods == "+JSON.stringify(response.headers["access-control-allow-methods"]);
+          code += "\n\ndata:\n"+response.data;
+        } else code += (errorIsGood? "(PASS) " : "(FAIL) ")+"Error: "+response.error;
+        
+        codeContainer.appendChild(document.createTextNode(code));
+        results.appendChild(codeContainer);
+        results.appendChild(document.createElement("hr"));
+        
+        testsCompleted++;
+        if (testsCompleted >= tests.length) finishTesting();
+      }
+      pmxdrInterface.request(request);
+    }
+    
+    for (var i=0; i<tests.length; i++)
+      pmxdrTest.apply(this, tests[i]);
+  
+    function finishTesting() {
+      document.getElementById("testing").innerHTML = "Automated tests finished. [<a href=\"#\" onclick=\"doPmxdrTests();return false;\">restart tests</a>]";
+      pmxdrInterface.unload();
+      delete pmxdrInterface;
+      //pmxdr.destruct();
+    }
+
+  }
+
+  pmxdrInterface.init();
+
+}
+
+doPmxdrTests();
+//]]>
+</script>
+<script type="text/javascript" src ="http://www.google-analytics.com/ga.js"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-4364432-7");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US-x-Hixie"> 
+<head> 
+	<meta charset="utf-8"/>
+	<title>Empty media queries testcase</title>
+	<style type="text/css" id="base-stylesheet">
+	#attr-test::before, #rule-test::before, #only-test::before {
+		color: red;
+		content: "FAIL: ";
+	}
+	#not-test::before {
+		color: red;
+		content: "FAIL: ";
+	}
+	</style>
+	<style type="text/css" media="">
+	#attr-test::before {
+		color: limegreen;
+		content: "PASS: ";
+	}
+	</style>
+	<style type="text/css">
+	@media {
+		#rule-test::before {
+			color: limegreen;
+			content: "PASS: ";
+		}
+	}
+	@media only {
+		#only-test::before {
+			color: limegreen;
+			content: "PASS: ";
+		}
+	}
+	</style>
+	<style type="text/css" id="not-test-stylesheet">
+	@media not { }
+	</style>
+	<style type="text/css" id="es-test-stylesheet">
+	#es-test::before {
+		color: red;
+		content: "FAIL: ";
+	}
+	</style>
+</head>
+<body>
+	<h1>Empty media queries testcase</h1>
+	<h2 id="attr-test" title="Attribute test"><code data-type="application/xhtml+xml"><![CDATA[<style media=""/>]]></code></h2>
+	<h2 id="rule-test" title="Rule test"><code data-type="text/css">@media { }</code></h2>
+	<h2 id="only-test" title="Rule (with “only”) test"><code data-type="text/css">@media only { }</code></h2>
+	<h2 id="not-test" title="Rule (with “not”) test"><code data-type="text/css">@media not { }</code></h2>
+	<h2 id="es-test" title="Script test"><code data-type="application/ecmascript">styleMedia.matchMedium("")</code></h2>
+	<script type="application/ecmascript">
+	<![CDATA[
+	(function () {
+	var
+		  $ = function (id) {
+			return document.getElementById(id);
+		}
+		, es_test_props = $("es-test-stylesheet").sheet.cssRules.item(0).style
+		, not_test_props = $("base-stylesheet").sheet.cssRules.item(1).style
+		, not_test_rule = $("not-test-stylesheet").sheet.cssRules.item(0)
+	;
+	if (not_test_rule && not_test_rule.media.mediaText.trim() === "not all") {
+		not_test_props.content = '"PASS: "';
+		not_test_props.color = "limegreen";
+	}
+	if (typeof styleMedia === "undefined") {
+		es_test_props.content = '"N/A: "';
+		es_test_props.color = "gray";
+	} else if (styleMedia.matchMedium("")) {
+		es_test_props.content = '"PASS: "';
+		es_test_props.color = "limegreen";
+	}
+	}());
+	]]>
+	</script>
+	<script type="application/ecmascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-4364432-7']);
+	_gaq.push(['_trackPageview']);
+	</script>
+	<script type="application/ecmascript" async="" href="//www.google-analytics.com/ga.js"/>
+</body>
+</html>

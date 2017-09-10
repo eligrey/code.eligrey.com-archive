@@ -1,0 +1,35 @@
+* {
+	display:block;
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	white-space:pre-wrap;
+}
+html {
+	display:block;
+}
+html::before {
+	background:none repeat scroll 0 0 black;
+	color:white;
+	content:"Title";
+	display:block;
+	font-size:24px;
+	font-weight:bold;
+	padding:17px 17px 20px;
+}
+head {
+	display:block;
+}
+head::before {
+	background:none repeat scroll 0 0 #C7C7C7;
+	color:#4D4D4D;
+	content:"Subtitle";
+	display:block;
+	font-size:14px;
+	padding:5px;
+}
+body {
+}
+pre {
+	font-family:Georgia,serif;
+	font-size:15px;
+	line-height:1.5em;
+}

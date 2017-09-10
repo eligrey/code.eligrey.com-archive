@@ -1,0 +1,2 @@
+- fixed JSON.stringify error in error responder function if 404 has no status text
+- updated minified json2.js

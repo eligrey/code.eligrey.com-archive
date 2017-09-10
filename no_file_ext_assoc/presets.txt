@@ -1,0 +1,63 @@
+Program Name
+File location
+Parameters (if any)
+
+
+Microsoft Office 2007
+Word: %ProgramFiles%\Microsoft Office\Office12\WINWORD.EXE
+parameters (for word, optional): /n /dde
+Excel: %ProgramFiles%\Microsoft Office\Office12\EXCEL.EXE
+OneNote: %ProgramFiles%\Microsoft Office\Office12\ONENOTE.EXE
+PowerPoint: %ProgramFiles%\Microsoft Office\Office12\POWERPNT.EXE
+PowerPoint Viewer: %ProgramFiles%\Microsoft Office\Office12\PPTVIEW.EXE
+
+Google Chrome
+%LocalAppData%\Google\Chrome\Application\chrome.exe
+
+OpenOffice.org 3.0
+%ProgramFiles%\OpenOffice.org 3\program\soffice.exe
+
+uTorrent
+%ProgramFiles%\uTorrent\uTorrent.exe
+
+Opera
+%ProgramFiles%\Opera\opera.exe
+
+Safari
+%ProgramFiles%\Safari\Safari.exe
+
+Internet Explorer
+%ProgramFiles%\Internet Explorer\iexplore.exe
+
+7-zip
+%ProgramFiles%\7-Zip\7zFM.exe
+
+VLC
+%ProgramFiles%\VideoLAN\VLC\vlc.exe
+
+Windows Media Player
+%ProgramFiles%\Windows Media Player\wmplayer.exe
+
+These should work by just typing in their names:
+Firefox
+Notepad
+Songbird
+iTunes
+Notepad++
+Inkscape
+Thunderbird
+Flock
+Pidgin
+XChat
+
+Adobe Products:
+
+Photoshop
+Flash
+Acrobat
+Fireworks
+Dreamweaver
+Bridge
+Contribute
+Illustrator
+InDesign

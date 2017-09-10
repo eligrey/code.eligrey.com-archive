@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>data: URI Tool</title>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="description" content="data: URI Tool" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+<!--UI Start-->
+<form id="dataCoding" method="post" action="http://validator.w3.org/check" onsubmit="if(fragment.value!=''&amp;&amp;fragment.value.length>=1){return true;}else{alert('The content box can not be left blank!');return false;}">
+<h1 id="top">data: URI Tool</h1>
+<p>
+<label for="dataURI">Data URI:</label>
+&nbsp;<input type="text" title="Base64 Encoded Data URI" id="dataURI" onclick="duDecode();this.select();" onkeyup="duDecode();" value="data:text/html;charset=utf-8;base64," />
+&nbsp;<label for="mimeTXT">MIME Type</label>
+&nbsp;<input type="text" title="Manually Input MIME Type" size="13" onkeydown="changeMIME();" onclick="changeMIME();" onkeyup="changeMIME();" id="mimeTXT" value="text/html" />
+&nbsp;<select title="MIME Type QuickList" onchange="if(this.value!='other'){QuickMIMEChange();}else{document.getElementById('mimeTXT').focus();}" id="quicklist">
+<option value="text/html">HTML</option>
+<option value="application/xhtml+xml">XHTML</option>
+<option value="text/plain">Text</option>
+<option value="text/javascript">JavaScript</option>
+<option value="application/javascript">App/JavaScript</option>
+<option value="text/css">CSS</option>
+<option value="image/svg+xml">SVG</option>
+<option value="text/xml">XML</option>
+<option value="application/xml">App/XML</option>
+<option value="application/rss+xml">RSS</option>
+<option value="application/vnd.mozilla.xul+xml">XUL</option>
+<option value="text/cache-manifest">Cache Manifest</option>
+<option value="image/x-xbitmap">XBM</option>
+<option value="_other_">Other</option>
+</select>
+</p>
+<p>
+<textarea name="fragment" id="fragment" spellcheck="false" onkeyup="duEncode();" onclick="duEncode();" rows="35" cols="110"></textarea>
+</p>
+<p>
+<input type="reset" value="Clear Everything" />
+<input type="button" onclick="document.getElementById('fragment').value='';" value="Clear Main Box" />
+&nbsp;<input type="button" onclick="document.getElementById('fragment').select();" value="Select All" />
+&nbsp;<input type="button" onclick="toggleSpellcheck();" value="Toggle Spell Check (Firefox)" />
+&nbsp;<input type="button" onclick="goToDataURI();" value="Go to Data URI" />
+&nbsp;<input type="button" onclick="previewDataURI();" value="Preview" />
+&nbsp;<input type="submit" onclick="validate=true;" value="Validate Markup" />
+&nbsp;<input type="button" onclick="getOutput();" value="Output" />
+&nbsp;<input type="button" onclick="TxtRsz.init();" value="Resize Textbox" />
+</p>
+<h2 id="output">Output</h2>
+<p><label for="base64out">Base64</label>&nbsp;<input type="text" class="output" id="base64out" onclick="this.select();" value="" />&nbsp;<input type="button" value="Compare" onclick="compareStrings('Base64',document.getElementById('base64out').value,'string');" />&nbsp;<input type="button" value="Decode" onclick="decodeBase64Output();" /></p>
+<p><label for="uriencode">URI Encoded</label>&nbsp;<input type="text" class="output" id="uriencode" onclick="this.select();" value="" />&nbsp;<input type="button" value="Compare" onclick="compareStrings('URI encoded',document.getElementById('uriencode').value,'string');" />&nbsp;<input type="button" value="URI Decode" onclick="decodeURIOutput();" /></p>
+<p><label for="entitized">Entitized</label>&nbsp;<input type="text" class="output" id="entitized" onclick="this.select();" value="" />&nbsp;<input type="button" value="Compare" onclick="compareStrings('entitized',document.getElementById('entitized').value,'string');" />&nbsp;<input type="button" value="Unentitize" onclick="unentitizeOutput();" /></p>
+<p><label for="md5hash">MD5</label>&nbsp;<input type="text" class="output" id="md5hash" onclick="this.select();" value="" />&nbsp;<input type="button" value="Compare" onclick="compareStrings('MD5',document.getElementById('md5hash').value);" /></p>
+<p><label for="sha1hash">SHA-1</label>&nbsp;<input type="text" class="output" id="sha1hash" onclick="this.select();" value="" />&nbsp;<input type="button" value="Compare" onclick="compareStrings('SHA-1',document.getElementById('sha1hash').value);" /></p></form>
+<p><a class="jslink" onclick="scrollToTop();">Back to Top</a></p>
+<div id="preview">
+<h1 id="preview_header"></h1>
+<iframe id="dataframe" src="about:blank" frameborder="0" scrolling="auto">You must enable support for iframes in your browser.</iframe>
+<div id="previewcontrols"><a class="jslink" onclick="scrollToTop();">Back to Top</a>&nbsp;<input type="checkbox" id="vsource" onclick="viewSource(this);" /><label for="vsource">View Source</label></div>
+</div>
+<!--UI End-->
+<script type="application/javascript" src="js/main.js"></script>
+</body>
+</html>

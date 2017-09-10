@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>HTML 5 dataset Demo</title>
+<script type="text/javascript" src="/xccessors/latest/xccessors.min.js"></script>
+<script type="text/javascript" src="latest/html5-dataset.js"></script>
+<style type="text/css">
+/*<![CDATA[*/
+aside {
+  float: right;
+}
+/*]]>*/
+</style>
+</head>
+<body>
+<header><h1 id="dataset-test" data-foo="bar" data-the-cake-is-a="truth"><a href="http://dev.w3.org/html5/spec/Overview.html#dom-dataset">HTML 5 dataset</a> Demo</h1></header>
+<article>
+<p>If some datasets are incorrect, your browser (most likely IE8) only partially supports them through this script.</p>
+<script type="text/javascript">
+//<![CDATA[
+var datasetTest = document.getElementById('dataset-test');
+var datasetTest2 = document.createElement('div');
+datasetTest.dataset['the-cake-is-a'] = 'LIE';
+datasetTest2.setDataAttributes({'test':'foobar','lorem':'ipsum'});
+datasetTest2.dataset.lorem = 'Lorem ipsum dolor sit amet.';
+datasetTest2.innerHTML = '<h2>Results:</h2>';
+datasetTest2.innerHTML += '<p>dataset.foo == '+datasetTest.dataset['foo']+' - (should be "bar")</p>';
+datasetTest2.innerHTML += '<p>dataset.the-cake-is-a == '+datasetTest.dataset['the-cake-is-a']+' - (should be "LIE")</p>';
+datasetTest2.innerHTML += '<p>dataset.lorem == '+datasetTest2.dataset['lorem']+' - (should be "Lorem ipsum dolor sit amet.")</p>';
+datasetTest2.innerHTML += '<p>dataset.test == '+datasetTest2.dataset['test']+' - (should be "foobar")</p>';
+document.documentElement.appendChild(datasetTest2);
+//]]>
+</script>
+</article>
+<aside>This page is valid HTML 5. Try the <a href="dataset-demo.xhtml">X/HTML 5 version</a></aside>
+<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-4364432-7");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>
